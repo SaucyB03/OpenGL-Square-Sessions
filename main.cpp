@@ -3,10 +3,14 @@
 
 #include <iostream>
 
+#include "Game.h"
+
 using namespace std;
 
 const int SC_WIDTH = 1000;
 const int SC_HEIGHT = 1000;
+
+Game game();
 
 void inputHandle(GLFWwindow *window){
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
@@ -39,6 +43,9 @@ int main(){
         glfwTerminate();
         return -1;
     }
+
+    //Create Objects
+
 
     while(!glfwWindowShouldClose(window)){
 

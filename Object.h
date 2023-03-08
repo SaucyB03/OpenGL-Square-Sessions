@@ -14,10 +14,15 @@ enum Shape{
 };
 
 class Object {
+    glm::vec2 position;
+    glm::vec2 scale;
+    Shape shape;
+
+    Object();
     Object(glm::vec2 position, glm::vec2 scale, Shape shape);
     ~Object();
 
-
+    void moveObj();
 };
 
 
