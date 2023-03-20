@@ -14,15 +14,24 @@ enum Shape{
 };
 
 class Object {
+protected:
     glm::vec2 position;
     glm::vec2 scale;
     Shape shape;
 
+    //Add necessary buffers
+    unsigned int va;
+    unsigned int vb;
+    unsigned int eb;
+
+
+public:
     Object();
     Object(glm::vec2 position, glm::vec2 scale, Shape shape);
     ~Object();
 
     void moveObj();
+    void display();
 };
 
 

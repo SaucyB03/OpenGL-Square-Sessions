@@ -44,7 +44,6 @@ int main(){
         return -1;
     }
 
-    //Create Objects
 
 
     while(!glfwWindowShouldClose(window)){

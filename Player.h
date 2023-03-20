@@ -7,7 +7,7 @@
 
 #include "Object.h"
 
-class Player : Object {
+class Player : public Object {
 private:
     int health;
 public:
