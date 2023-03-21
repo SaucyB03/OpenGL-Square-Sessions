@@ -8,6 +8,7 @@
 #include "Object.h"
 
 const float MAXPIXPERSEC = 5;
+const float JUMP_VEL = 10;
 
 class Player : public Object {
 private:

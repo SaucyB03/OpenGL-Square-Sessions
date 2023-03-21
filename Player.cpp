@@ -4,36 +4,11 @@
 
 #include "Player.h"
 #include "Object.h"
-#include "Game.h"
 
-
-Player::Player(glm::vec2 position, glm::vec2 scale, glm::vec2 velocity, int health, int scWidth, int scHeight) {
-    this->position = position;
-    this->scale = scale;
-    this->velocity = velocity;
+Player::Player(glm::vec2 position, glm::vec2 scale, glm::vec2 velocity, int health, int scWidth, int scHeight) : Object(position, scale, velocity, true, scWidth, scHeight) {
     this->health = health;
-    this->scWidth = scWidth;
-    this->scHeight = scHeight;
-
-
-    float verts[] = {
-            scale.x + position.x,  scale.y + position.y, 0.0f,  // top right
-            scale.x + position.x, -scale.y + position.y, 0.0f,  // bottom right
-            -scale.x + position.x, -scale.y + position.y, 0.0f,  // bottom left
-            -scale.x + position.x,  scale.y + position.y, 0.0f,   // top left
-    };
-
-    int i;
-    for(i = 0; i < sizeof(vertices); ++i){
-        if(i % 3 == 0){
-            vertices[i] = verts[i] / this->scWidth;
-        }else{
-            vertices[i] = verts[i] / this->scHeight;
-        }
-    }
-
-
-    assignBuffandArr(vertices, indices);
+    this->damageTaken = 0;
+    this->damageDone = 0;
 }
 
 Player::~Player() {
@@ -56,7 +31,7 @@ void Player::move(bool grounded, bool move, bool jump, float deltaTime) {
     }
 
     if(grounded && jump){
-        velocity.y += jumpVel;
+        velocity.y += JUMP_VEL;
     }
 }
 

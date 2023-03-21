@@ -53,7 +53,7 @@ Object::Object(glm::vec2 initSize, glm::vec2 initTransform, glm::vec2 velocity, 
     };
 
     int i;
-    for(i = 0; i < sizeof(vertices); ++i){
+    for(i = 0; i < sizeof(vertices) / sizeof(float); ++i){
         if(i % 3 == 0){
             vertices[i] = verts[i] / (float) this->scWidth;
         }else{

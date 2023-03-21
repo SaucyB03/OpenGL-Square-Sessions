@@ -20,21 +20,13 @@ private:
     int SC_HEIGHT;
     bool menu;
 
-    GLFWwindow* window;
-
-    vector<Object> heals;
-    vector<Object> spikes;
+    Player* player;
+    vector<Object> enemies;
 
 public:
-    Game(int SC_WIDTH, int SC_HEIGHT, GLFWwindow* window);
+    Game(int SC_WIDTH, int SC_HEIGHT);
 
-    void displayMenu();
-    bool getMenuStatus();
-
-    int getScWidth() const;
-    int getScHeight() const;
-
-    void beginGame();
+    void renderAll();
 
     void checkInput(GLFWwindow *window);
 };

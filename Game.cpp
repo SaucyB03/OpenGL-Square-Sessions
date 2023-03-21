@@ -6,34 +6,14 @@
 #include "GL/glew.h"
 #include "GLFW/glfw3.h"
 
-Game::Game(int SC_WIDTH, int SC_HEIGHT, GLFWwindow* window) {
+Game::Game(int SC_WIDTH, int SC_HEIGHT){
     this-> SC_WIDTH = SC_WIDTH;
     this-> SC_HEIGHT = SC_HEIGHT;
-    this->window = window;
-//    menu = true;
-//    displayMenu();
+    player = new Player(glm::vec2(0.0,0.0), glm::vec2(500,500), glm::vec2(0.0,0.0), 100, SC_WIDTH, SC_HEIGHT);
 }
 
-void Game::displayMenu(){
-    //system("py ./displayText.py " +  + );
-    //ODO make python file that displays text, pass menu information with cords and display it
-    // information about this can be found: https://stackoverflow.com/questions/63836707/how-to-render-text-with-pyopengl
-}
-
-bool Game::getMenuStatus() {
-    return menu;
-}
-
-int Game::getScWidth() const {
-    return SC_WIDTH;
-}
-
-int Game::getScHeight() const{
-    return SC_HEIGHT;
-}
-
-void Game::beginGame() {
-
+void Game::renderAll() {
+    player->display();
 }
 
 void Game::checkInput(GLFWwindow *window){

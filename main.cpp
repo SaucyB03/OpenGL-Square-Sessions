@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include "Game.h"
+#include "Player.h"
 
 using namespace std;
 
@@ -11,6 +12,12 @@ const int SC_WIDTH = 1000;
 const int SC_HEIGHT = 1000;
 
 Game* game;
+void checkInput(GLFWwindow *window) {
+
+    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
+        glfwSetWindowShouldClose(window, true);
+    }
+}
 
 int main(){
 
@@ -39,13 +46,19 @@ int main(){
         return -1;
     }
 
-    game = new Game(SC_WIDTH, SC_HEIGHT, window);
+    //game = new Game(SC_WIDTH, SC_HEIGHT);
 
+    Player player(glm::vec2(0.0,0.0), glm::vec2(500,500), glm::vec2(0.0,0.0), 100, SC_WIDTH, SC_HEIGHT);
     while(!glfwWindowShouldClose(window)){
 
-        game->checkInput(window);
+        //game->checkInput(window);
+        checkInput(window);
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
+
+        //game->renderAll();
+
+        player.display();
 
         glfwSwapBuffers(window);
         glfwPollEvents();
@@ -53,3 +66,4 @@ int main(){
     glfwTerminate();
     return 0;
 }
+
