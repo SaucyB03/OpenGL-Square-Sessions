@@ -7,30 +7,37 @@
 #include "GLFW/glfw3.h"
 #include <glm/glm.hpp>
 
-enum Shape{
-    CIRCLE,
-    SQUARE,
-    TRIANGLE
-};
+
+const float GRAVITY = -9.81;
 
 class Object {
 protected:
+    int scWidth;
+    int scHeight;
+
     glm::vec2 position;
     glm::vec2 scale;
-    Shape shape;
+    glm::vec2 velocity;
+    bool dynamic;
 
     //Add necessary buffers
     unsigned int va;
     unsigned int vb;
     unsigned int eb;
 
+    float vertices[12];
+    unsigned int indices[6] = {  // note that we start from 0!
+            0, 1, 3,  // first Triangle
+            1, 2, 3   // second Triangle
+    };
+
+    void assignBuffandArr(float vertices[], unsigned int indices[]);
 
 public:
-    Object();
-    Object(glm::vec2 position, glm::vec2 scale, Shape shape);
+    Object(glm::vec2 position, glm::vec2 scale, glm::vec2 velocity, bool dynamic, int scWidth, int scHeight);
     ~Object();
 
-    void moveObj();
+    void move(bool grounded, float speed, bool move, float deltaTime);
     void display();
 };
 

@@ -10,12 +10,7 @@ using namespace std;
 const int SC_WIDTH = 1000;
 const int SC_HEIGHT = 1000;
 
-Game game();
-
-void inputHandle(GLFWwindow *window){
-    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-        glfwSetWindowShouldClose(window, true);
-}
+Game* game;
 
 int main(){
 
@@ -44,11 +39,11 @@ int main(){
         return -1;
     }
 
-
+    game = new Game(SC_WIDTH, SC_HEIGHT, window);
 
     while(!glfwWindowShouldClose(window)){
 
-        inputHandle(window);
+        game->checkInput(window);
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 

@@ -6,27 +6,8 @@
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 
-
-Object::Object() {
-    shape = SQUARE;
-}
-
-Object::Object(glm::vec2 initSize, glm::vec2 initTransform, Shape shape) {
-    scale = initSize;
-    position = initTransform;
-    this->shape = shape;
-
-    float vertices[] = {
-            scale.x + position.x,  scale.y + position.y, 0.0f,  // top right
-            scale.x + position.x, -scale.y + position.y, 0.0f,  // bottom right
-            -scale.x + position.x, -scale.y + position.y, 0.0f,  // bottom left
-            -scale.x + position.x,  scale.y + position.y, 0.0f,   // top left
-
-    };
-    unsigned int indices[] = {  // note that we start from 0!
-            0, 1, 3,  // first Triangle
-            1, 2, 3   // second Triangle
-    };
+//Protected////////////
+void Object::assignBuffandArr(float vertices[], unsigned int indices[]){
     glGenVertexArrays(1, &this->va);
     glGenBuffers(1, &this->vb);
     glGenBuffers(1, &this->eb);
@@ -53,13 +34,59 @@ Object::Object(glm::vec2 initSize, glm::vec2 initTransform, Shape shape) {
     glBindVertexArray(0);
 }
 
+//Public//////////
+
+Object::Object(glm::vec2 initSize, glm::vec2 initTransform, glm::vec2 velocity, bool dynamic, int scWidth, int scHeight){
+    this->scale = initSize;
+    this->position = initTransform;
+    this->velocity = velocity;
+    this->dynamic = dynamic;
+    this->scWidth = scWidth;
+    this->scHeight = scHeight;
+
+    float verts[] = {
+            scale.x + position.x,  scale.y + position.y, 0.0f,  // top right
+            scale.x + position.x, -scale.y + position.y, 0.0f,  // bottom right
+            -scale.x + position.x, -scale.y + position.y, 0.0f,  // bottom left
+            -scale.x + position.x,  scale.y + position.y, 0.0f,   // top left
+
+    };
+
+    int i;
+    for(i = 0; i < sizeof(vertices); ++i){
+        if(i % 3 == 0){
+            vertices[i] = verts[i] / (float) this->scWidth;
+        }else{
+            vertices[i] = verts[i] / (float) this->scHeight;
+        }
+    }
+
+
+    assignBuffandArr(vertices, indices);
+}
+
 Object::~Object() {
     glDeleteBuffers(GL_ELEMENT_ARRAY_BUFFER, &this->eb);
 }
 
 
-void Object::moveObj() {
+void Object::move(bool grounded, float speed, bool move, float deltaTime) {
+    /*For move:
+     * True = Right
+     * False = Left */
 
+    if(move){
+        position.x += speed * deltaTime;
+    }else{
+        position.x -= speed * deltaTime;
+    }
+
+    if(!grounded && dynamic){
+        velocity.y -= GRAVITY * deltaTime;
+    }
+
+    position.x += velocity.x * deltaTime;
+    position.y += velocity.y * deltaTime;
 }
 
 void Object::display() {
