@@ -6,6 +6,7 @@
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 
+
 //Private////////////
 void Object::assignBuffandArr(){
     glGenVertexArrays(1, &this->va);
@@ -54,19 +55,19 @@ Object::Object(glm::vec2 position, glm::vec2 scale, glm::vec2 velocity, bool dyn
     this->scHeight = scHeight;
 
     float verts[] = {
-            scale.x + position.x - scWidth/2, position.y - scHeight/2,           0.0f,  // bottom right
-            scale.x + position.x - scWidth/2, scale.y + position.y - scHeight/2, 0.0f,  // top right
-            position.x - scWidth/2,           scale.y + position.y - scHeight/2, 0.0f,  // top left
-            position.x - scWidth/2,           position.y - scHeight/2,          0.0f,   //bottom left
+            scale.x*2 + position.x*2 - scWidth/2, position.y*2 - scHeight/2,             0.0f,  // bottom right
+            scale.x*2 + position.x*2 - scWidth/2, scale.y*2 + position.y*2 - scHeight/2, 0.0f,  // top right
+            position.x*2 - scWidth/2,             scale.y*2 + position.y*2 - scHeight/2, 0.0f,  // top left
+            position.x*2 - scWidth/2,            position.y*2 - scHeight/2,             0.0f,   //bottom left
     };
 
 
     int i;
     for(i = 0; i < sizeof(vertices) / sizeof(float); ++i){
         if(i % 3 == 0){
-            vertices[i] = verts[i] / (float) this->scWidth;
+            vertices[i] = (verts[i] / (float) this->scWidth) - 0.5;
         }else{
-            vertices[i] = verts[i] / (float) this->scHeight;
+            vertices[i] = (verts[i] / (float) this->scHeight) - 0.5;
         }
     }
 
@@ -78,23 +79,15 @@ Object::~Object() {
 }
 
 
-void Object::move(bool grounded, float speed, bool move, float deltaTime) {
-    /*For move:
-     * True = Right
-     * False = Left */
-
-    if(move){
-        position.x += speed * deltaTime;
-    }else{
-        position.x -= speed * deltaTime;
+void Object::move(glm::vec2 transform) {
+    int i;
+    for(i = 0; i < sizeof(vertices) / sizeof(float); ++i){
+        if(i % 3 == 0){
+            vertices[i] += (transform.x / (float) this->scWidth) - 0.5;
+        }else if(i % 2 == 0){
+            vertices[i] += (transform.y / (float) this->scHeight) - 0.5;
+        }
     }
-
-    if(!grounded && dynamic){
-        velocity.y -= GRAVITY * deltaTime;
-    }
-
-    position.x += velocity.x * deltaTime;
-    position.y += velocity.y * deltaTime;
 }
 
 void Object::display() {

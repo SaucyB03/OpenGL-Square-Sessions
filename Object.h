@@ -36,7 +36,7 @@ public:
     Object(glm::vec2 position, glm::vec2 scale, glm::vec2 velocity, bool dynamic, int scWidth, int scHeight);
     ~Object();
 
-    void move(bool grounded, float speed, bool move, float deltaTime);
+    void move(glm::vec2 transform);
     void display();
 };
 

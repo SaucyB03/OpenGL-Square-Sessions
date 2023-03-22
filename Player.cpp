@@ -19,20 +19,36 @@ void Player::changeHealth(int deltaHealth) {
     this->health += deltaHealth;
 }
 
-void Player::move(bool grounded, bool move, bool jump, float deltaTime) {
-    /*For move:
-     * True = Right
-     * False = Left */
+void Player::move(bool grounded, int move, bool jump, double deltaTime) {
 
-    if(move){
+    glm::vec2 oldPos = position;
+    /*For move:
+     * 0 = idle
+     * 1 = left
+     * 2 = right*/
+
+    if(move == 1){
         this->position.x += MAXPIXPERSEC * deltaTime;
-    }else{
+    }else if (move == 2){
         this->position.x -= MAXPIXPERSEC * deltaTime;
     }
 
-    if(grounded && jump){
-        velocity.y += JUMP_VEL;
+    if(!grounded){
+        if(position.y > -10){
+            velocity.y -= GRAVITY * deltaTime;
+            position.y += velocity.y * deltaTime;
+        }
     }
+
+    if(grounded && jump){
+        grounded = false;
+        velocity.y += JUMP_VEL;
+    }else if (grounded){
+        velocity.y = 0;
+    }
+
+    Object::move(glm::vec2(10, 0));
+
 }
 
 int Player::getHealth() {

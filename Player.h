@@ -20,7 +20,7 @@ public:
     ~Player();
 
     void changeHealth(int deltaHealth);
-    void move(bool groundContact, bool move, bool jump, float deltaTime);
+    void move(bool grounded, int move, bool jump, double deltaTime);
     int getHealth();
     int getDamageDone();
     int getDamageTaken();

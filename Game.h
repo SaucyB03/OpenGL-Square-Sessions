@@ -16,19 +16,24 @@ using namespace std;
 
 class Game {
 private:
+    const int PLAYER_DIM = 50;
     int scWidth;
     int scHeight;
     bool menu;
 
     Player* player;
+    Object* ground;
     vector<Object> enemies;
+    vector<Object> platforms;
 
 public:
     Game(int scWidth, int scHeight);
 
-    void renderAll();
+    void checkCollisions();
+    void updateMotion(double deltaTime);
 
-    void checkInput(GLFWwindow *window);
+    void renderAll();
+    void checkInput(GLFWwindow *window, double deltaTime);
 };
 
 

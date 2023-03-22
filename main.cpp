@@ -2,6 +2,7 @@
 #include <GLFW/glfw3.h>
 
 #include <iostream>
+#include <chrono>
 
 #include "Game.h"
 #include "Player.h"
@@ -11,6 +12,8 @@ using namespace std;
 
 const int SC_WIDTH = 1500;
 const int SC_HEIGHT = 1500;
+
+
 
 void checkInput(GLFWwindow *window) {
 
@@ -48,16 +51,20 @@ int main(){
 
     Game game = *new Game(SC_WIDTH, SC_HEIGHT);
     Shader shader = *new Shader("../vertexShader.glsl", "../fragmentShader.glsl");
+    auto startTime = std::chrono::high_resolution_clock::now();
 
     while(!glfwWindowShouldClose(window)){
+        auto endTime = std::chrono::high_resolution_clock::now();
+        double deltaTime = std::chrono::duration<double, std::milli>(endTime - startTime).count();
 
-        //game->checkInput(window);
-        checkInput(window);
+        game.checkInput(window, deltaTime);
+        //checkInput(window);
 
         shader.bindShader();
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
+        game.updateMotion(deltaTime);
         game.renderAll();
 
         glfwSwapBuffers(window);
