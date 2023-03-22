@@ -6,10 +6,10 @@
 #include "GL/glew.h"
 #include "GLFW/glfw3.h"
 
-Game::Game(int SC_WIDTH, int SC_HEIGHT){
-    this-> SC_WIDTH = SC_WIDTH;
-    this-> SC_HEIGHT = SC_HEIGHT;
-    player = new Player(glm::vec2(0.0,0.0), glm::vec2(500,500), glm::vec2(0.0,0.0), 100, SC_WIDTH, SC_HEIGHT);
+Game::Game(int scWidth, int scHeight){
+    this->scWidth = scWidth;
+    this->scHeight = scHeight;
+    player = new Player(glm::vec2(0.0,0.0), glm::vec2(scHeight/2,scHeight/2), glm::vec2(0.0,0.0), 100, scHeight, scHeight);
 }
 
 void Game::renderAll() {

@@ -18,12 +18,7 @@ protected:
     glm::vec2 position;
     glm::vec2 scale;
     glm::vec2 velocity;
-    bool dynamic;
 
-    //Add necessary buffers
-    unsigned int va;
-    unsigned int vb;
-    unsigned int eb;
 
     float vertices[12];
     unsigned int indices[6] = {  // note that we start from 0!
@@ -31,7 +26,11 @@ protected:
             1, 2, 3   // second Triangle
     };
 
-    void assignBuffandArr(float vertices[], unsigned int indices[]);
+private:
+    bool dynamic;
+    //Add necessary buffers
+    unsigned int va, vb, eb;
+    void assignBuffandArr();
 
 public:
     Object(glm::vec2 position, glm::vec2 scale, glm::vec2 velocity, bool dynamic, int scWidth, int scHeight);

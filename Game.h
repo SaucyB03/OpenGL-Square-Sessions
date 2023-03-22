@@ -16,15 +16,15 @@ using namespace std;
 
 class Game {
 private:
-    int SC_WIDTH;
-    int SC_HEIGHT;
+    int scWidth;
+    int scHeight;
     bool menu;
 
     Player* player;
     vector<Object> enemies;
 
 public:
-    Game(int SC_WIDTH, int SC_HEIGHT);
+    Game(int scWidth, int scHeight);
 
     void renderAll();
 

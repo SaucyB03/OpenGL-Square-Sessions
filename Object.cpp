@@ -6,19 +6,28 @@
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 
-//Protected////////////
-void Object::assignBuffandArr(float vertices[], unsigned int indices[]){
+//Private////////////
+void Object::assignBuffandArr(){
     glGenVertexArrays(1, &this->va);
     glGenBuffers(1, &this->vb);
     glGenBuffers(1, &this->eb);
     // bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
     glBindVertexArray(this->va);
 
-    glBindBuffer(GL_ARRAY_BUFFER, this->vb);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    if(dynamic){
+        glBindBuffer(GL_ARRAY_BUFFER, this->vb);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(this->vertices), this->vertices, GL_DYNAMIC_DRAW);
 
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->eb);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->eb);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(this->indices), this->indices, GL_DYNAMIC_DRAW);
+    }else {
+        glBindBuffer(GL_ARRAY_BUFFER, this->vb);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(this->vertices), this->vertices, GL_STATIC_DRAW);
+
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->eb);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(this->indices), this->indices, GL_STATIC_DRAW);
+    }
+
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
@@ -36,21 +45,21 @@ void Object::assignBuffandArr(float vertices[], unsigned int indices[]){
 
 //Public//////////
 
-Object::Object(glm::vec2 initSize, glm::vec2 initTransform, glm::vec2 velocity, bool dynamic, int scWidth, int scHeight){
-    this->scale = initSize;
-    this->position = initTransform;
+Object::Object(glm::vec2 position, glm::vec2 scale, glm::vec2 velocity, bool dynamic, int scWidth, int scHeight){
+    this->position = position;
+    this->scale = scale;
     this->velocity = velocity;
     this->dynamic = dynamic;
     this->scWidth = scWidth;
     this->scHeight = scHeight;
 
     float verts[] = {
-            scale.x + position.x,  scale.y + position.y, 0.0f,  // top right
-            scale.x + position.x, -scale.y + position.y, 0.0f,  // bottom right
-            -scale.x + position.x, -scale.y + position.y, 0.0f,  // bottom left
-            -scale.x + position.x,  scale.y + position.y, 0.0f,   // top left
-
+            scale.x + position.x - scWidth/2, position.y - scHeight/2,           0.0f,  // bottom right
+            scale.x + position.x - scWidth/2, scale.y + position.y - scHeight/2, 0.0f,  // top right
+            position.x - scWidth/2,           scale.y + position.y - scHeight/2, 0.0f,  // top left
+            position.x - scWidth/2,           position.y - scHeight/2,          0.0f,   //bottom left
     };
+
 
     int i;
     for(i = 0; i < sizeof(vertices) / sizeof(float); ++i){
@@ -61,8 +70,7 @@ Object::Object(glm::vec2 initSize, glm::vec2 initTransform, glm::vec2 velocity, 
         }
     }
 
-
-    assignBuffandArr(vertices, indices);
+    assignBuffandArr();
 }
 
 Object::~Object() {
