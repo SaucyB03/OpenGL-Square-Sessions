@@ -7,7 +7,7 @@
 Game::Game(int scWidth, int scHeight){
     this->scWidth = scWidth;
     this->scHeight = scHeight;
-    player = new Player(glm::vec2(0.0, 0.0), glm::vec2(0.5,0.5), glm::vec2(0.0,0.0), playerColor, 100, scHeight, scHeight);
+    player = new Player(glm::vec2(0.0 , 0.0), glm::vec2(scWidth / 10,scHeight / 10), glm::vec2(0.0,0.0), playerColor, 100, scHeight, scHeight);
 
 }
 
@@ -15,34 +15,34 @@ void Game::checkCollisions() {
 
 }
 
-void Game::updateMotion(double deltaTime) {
-    player->move(false, 0, false, deltaTime);
+void Game::updateMotion(vector<bool> motion, double deltaTime) {
+    if(motion[1]){
+        player->move(1, motion[0], deltaTime);
+    }else if(motion[2]){
+        player->move(2, motion[0], deltaTime);
+    }else{
+        player->move(0, motion[0], deltaTime);
+    }
 }
-//
-//Shader Game::returnShader() {
-//    return shader;
-//}
+
 
 void Game::renderAll() {
-//    glm::mat4 transform = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
-//    transform = glm::translate(transform, glm::vec3(0.0f, 0.0f, 0.0f));
-//    transform = glm::rotate(transform, (float)glfwGetTime(), glm::vec3(0.0f, 0.0f, 1.0f));
-//    shader->setUniformMat4("transform", transform);
     player->display();
 }
 
-void Game::checkInput(GLFWwindow *window, double deltaTime){
-    bool jump = false;
+vector<bool> Game::checkInput(GLFWwindow *window, double deltaTime){
+    vector<bool> keys= {false,false,false};
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
         glfwSetWindowShouldClose(window, true);
     }
     if(glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS){
-        jump = true;
-        std::cout << "Key Press: SPACE" << endl;
+        keys[0] = true;
+
     }
     if(glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS){
-        player->move(true, false, false, deltaTime);
+        keys[2] = true;
     }else if(glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS){
-        std::cout << "Key Press: A" << endl;
+        keys[1] = true;
     }
+    return keys;
 }

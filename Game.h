@@ -43,12 +43,12 @@ public:
     Game(int scWidth, int scHeight);
 
     void checkCollisions();
-    void updateMotion(double deltaTime);
+    void updateMotion(vector<bool> motion, double deltaTime);
 
     //Shader returnShader();
 
     void renderAll();
-    void checkInput(GLFWwindow *window, double deltaTime);
+    vector<bool> checkInput(GLFWwindow *window, double deltaTime);
 };
 
 

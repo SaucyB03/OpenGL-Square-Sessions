@@ -11,8 +11,8 @@
 using namespace std;
 
 
-const int SC_WIDTH = 1500;
-const int SC_HEIGHT = 1500;
+const int SC_WIDTH = 1600;
+const int SC_HEIGHT = 1600;
 
 //map<const char*, Shader> ShaderResources::allShaders = *new map<const char*, Shader*>();
 
@@ -58,19 +58,18 @@ int main(){
     while(!glfwWindowShouldClose(window)){
         auto endTime = std::chrono::high_resolution_clock::now();
         double deltaTime = std::chrono::duration<double, std::milli>(endTime - startTime).count();
+        deltaTime *= 0.001;
 
-        game.checkInput(window, deltaTime);
-        //checkInput(window);
+        startTime = std::chrono::high_resolution_clock::now();
+
+
+        vector<bool> motion = game.checkInput(window, deltaTime);
 
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-//        glm::mat4 transform = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
-//        transform = glm::translate(transform, glm::vec3(0.0f, 0.0f, 0.0f));
-//        transform = glm::rotate(transform, (float)glfwGetTime(), glm::vec3(0.0f, 0.0f, 1.0f));
-//        shader.setUniformMat4("transform", transform);
 
-        //game.updateMotion(deltaTime);
+        game.updateMotion(motion, deltaTime);
         game.renderAll();
 
         glfwSwapBuffers(window);

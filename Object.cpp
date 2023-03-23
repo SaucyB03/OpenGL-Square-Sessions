@@ -66,15 +66,24 @@ Object::Object(glm::vec2 position, glm::vec2 scale, glm::vec2 velocity, glm::mat
 //            position.x,            scale.y + position.y,  0.0f,  /* top left */     vecColor[2][0], vecColor[2][1], vecColor[2][2],
 //            position.x,            position.y,              0.0f,   /* bottom left */ vecColor[3][0], vecColor[3][1], vecColor[3][2]
 //    };
+
+
     float verts[] = {
-            scale.x + position.x, position.y,               0.0f,  /* bottom right */
-            scale.x + position.x, scale.y + position.y,   0.0f,  /* top right */
-            position.x,            scale.y + position.y,  0.0f,  /* top left */
-            position.x,            position.y,              0.0f   /* bottom left */
+            scale.x, 0.0,      0.0f,  /* bottom right */
+            scale.x, scale.y,  0.0f,  /* top right */
+            0.0,     scale.y,  0.0f,  /* top left */
+            0.0,     0.0,     0.0f   /* bottom left */
     };
 
-    for(int i = 0; i < sizeof(vertices)/ sizeof(float ); ++i){
-        vertices[i] = verts[i];
+
+    for(int i = 0; i < sizeof(vertices)/ sizeof(float); ++i){
+        if(i % 3 == 0){
+            vertices[i] = (verts[i] / (float)scWidth) * 2 - 1;
+        }else if((i-1) % 3 == 0){
+            vertices[i] = (verts[i] / (float)scHeight) * 2 - 1;
+        }else{
+            vertices[i] = verts[i];
+        }
     }
 
 
@@ -93,8 +102,11 @@ void Object::move() {
 void Object::display() {
     shader.bindShader();
 
+    cout << (position.x + scale.x / (float)scWidth) << ", " << (position.y + scale.y / (float)scHeight)<< endl;
+
     glm::mat4 transform = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
-    transform = glm::translate(transform, glm::vec3(position, 0.0f));
+    transform = glm::translate(transform, glm::vec3((position.x / (float)scWidth), (position.y / (float)scHeight), 0.0f));
+    //transform = glm::translate(transform, glm::vec3(0.0f, 0.1f, 0.0f));
     shader.setUniformMat4("transform", transform);
 
     glBindVertexArray(this->va); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized

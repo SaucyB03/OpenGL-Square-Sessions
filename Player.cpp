@@ -8,6 +8,7 @@ Player::Player(glm::vec2 position, glm::vec2 scale, glm::vec2 velocity, glm::mat
     this->health = health;
     this->damageTaken = 0;
     this->damageDone = 0;
+    this->grounded = true;
 }
 
 Player::~Player() {
@@ -18,7 +19,7 @@ void Player::changeHealth(int deltaHealth) {
     this->health += deltaHealth;
 }
 
-void Player::move(bool grounded, int move, bool jump, double deltaTime) {
+void Player::move(int move, bool jump, double deltaTime) {
 
     /*For move:
      * 0 = idle
@@ -26,27 +27,32 @@ void Player::move(bool grounded, int move, bool jump, double deltaTime) {
      * 2 = right*/
 
     if(move == 1){
-        this->position.x += MAXPIXPERSEC * deltaTime;
-    }else if (move == 2){
         this->position.x -= MAXPIXPERSEC * deltaTime;
+    }else if (move == 2){
+        this->position.x += MAXPIXPERSEC * deltaTime;
     }
 
     if(!grounded){
-        if(position.y > -10){
-            velocity.y -= GRAVITY * deltaTime;
+        cout << position.y << endl;
+        if(position.y > 0  && velocity.y < 0){
+            velocity.y -= APPARENT_GRAVITY * deltaTime;
             position.y += velocity.y * deltaTime;
+
+        }else if(velocity.y > 0){
+            velocity.y -= APPARENT_GRAVITY * deltaTime;
+            position.y += velocity.y * deltaTime;
+        }else{
+            this->grounded = true;
         }
     }
 
     if(grounded && jump){
-        grounded = false;
+        this->grounded = false;
         velocity.y += JUMP_VEL;
     }else if (grounded){
+        //cout << velocity.y<< endl;
         velocity.y = 0;
     }
-
-    Object::move();
-
 }
 
 int Player::getHealth() {

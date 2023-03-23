@@ -9,7 +9,7 @@
 
 #include "Shader.h"
 
-const float GRAVITY = -9.81;
+const double APPARENT_GRAVITY = 981;
 
 class Object {
 protected:
