@@ -7,7 +7,6 @@
 #include <chrono>
 
 #include "Game.h"
-#include "ShaderResources.h"
 
 using namespace std;
 
@@ -15,7 +14,7 @@ using namespace std;
 const int SC_WIDTH = 1500;
 const int SC_HEIGHT = 1500;
 
-
+//map<const char*, Shader> ShaderResources::allShaders = *new map<const char*, Shader*>();
 
 void checkInput(GLFWwindow *window) {
 
@@ -25,6 +24,7 @@ void checkInput(GLFWwindow *window) {
 }
 
 int main(){
+
 
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -51,7 +51,6 @@ int main(){
         return -1;
     }
 
-    ShaderResources::addShader("generalShader");
 
     Game game = *new Game(SC_WIDTH, SC_HEIGHT);
     auto startTime = std::chrono::high_resolution_clock::now();
@@ -63,7 +62,6 @@ int main(){
         game.checkInput(window, deltaTime);
         //checkInput(window);
 
-        ShaderResources::getShader("generalShader").bindShader();
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
@@ -81,4 +79,3 @@ int main(){
     glfwTerminate();
     return 0;
 }
-

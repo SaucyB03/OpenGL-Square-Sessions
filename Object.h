@@ -3,12 +3,11 @@
 #ifndef M3OE_BKSOUCY_OBJECT_H
 #define M3OE_BKSOUCY_OBJECT_H
 
-#include "ShaderResources.h"
-
 #include "GL/glew.h"
 #include "GLFW/glfw3.h"
 #include <glm/glm.hpp>
 
+#include "Shader.h"
 
 const float GRAVITY = -9.81;
 
@@ -16,6 +15,8 @@ class Object {
 protected:
     int scWidth;
     int scHeight;
+
+    Shader shader;
 
     glm::vec2 position;
     glm::vec2 scale;

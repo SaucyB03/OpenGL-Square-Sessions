@@ -50,7 +50,7 @@ void Object::assignBuffandArr(){
 
 //Public//////////
 
-Object::Object(glm::vec2 position, glm::vec2 scale, glm::vec2 velocity, glm::mat4x3 vecColor, bool dynamic, int scWidth, int scHeight){
+Object::Object(glm::vec2 position, glm::vec2 scale, glm::vec2 velocity, glm::mat4x3 vecColor, bool dynamic, int scWidth, int scHeight) : shader("../vertexShader.glsl", "../fragmentShader.glsl"){
     this->position = position;
     this->scale = scale;
     this->velocity = velocity;
@@ -87,15 +87,15 @@ Object::~Object() {
 
 
 void Object::move() {
-//    glm::mat4 model = glm::mat4(1.0f);
-//    model = glm::translate(model, glm::vec3(position, 0.0f));
-//    shader.setUniformMat4("transform", model);
+
 }
 
 void Object::display() {
+    shader.bindShader();
+
     glm::mat4 transform = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
-    transform = glm::translate(transform, glm::vec3(1.0f, 1.0f, 1.0f));
-    ShaderResources::getShader("generalShader").setUniformMat4("transform", transform);
+    transform = glm::translate(transform, glm::vec3(position, 0.0f));
+    shader.setUniformMat4("transform", transform);
 
     glBindVertexArray(this->va); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);

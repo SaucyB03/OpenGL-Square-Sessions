@@ -6,7 +6,6 @@
 #define M3OE_BKSOUCY_PLAYER_H
 
 #include "Object.h"
-#include "ShaderResources.h"
 
 const float MAXPIXPERSEC = 5;
 const float JUMP_VEL = 10;
