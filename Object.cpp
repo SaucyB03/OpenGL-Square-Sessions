@@ -50,7 +50,7 @@ void Object::assignBuffandArr(){
 
 //Public//////////
 
-Object::Object(glm::vec2 position, glm::vec2 scale, glm::vec2 velocity, glm::mat4x3 vecColor, bool dynamic, int scWidth, int scHeight) : shader("../vertexShader.glsl", "../fragmentShader.glsl"){
+Object::Object(glm::vec2 position, glm::vec2 scale, glm::vec2 velocity, bool dynamic, int scWidth, int scHeight) : shader("../vertexShader.glsl", "../fragmentShader.glsl"){
     this->position = position;
     this->scale = scale;
     this->velocity = velocity;
@@ -95,8 +95,13 @@ Object::~Object() {
 }
 
 
-void Object::move() {
-
+void Object::move(float deltaTime) {
+    if(velocity.x > 0){
+        position.x += velocity.x * deltaTime;
+    }
+    if(velocity.y > 0){
+        position.y += velocity.y * deltaTime;
+    }
 }
 
 void Object::display() {

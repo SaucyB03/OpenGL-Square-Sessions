@@ -1,6 +1,7 @@
 //spinesquare
 
 #include <GL/glew.h>
+#include <GL/glut.h>
 #include <GLFW/glfw3.h>
 
 #include <iostream>
@@ -50,6 +51,7 @@ int main(){
         glfwTerminate();
         return -1;
     }
+
 
 
     Game game = *new Game(SC_WIDTH, SC_HEIGHT);

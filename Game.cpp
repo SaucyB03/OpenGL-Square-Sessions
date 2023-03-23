@@ -32,6 +32,11 @@ void Game::renderAll() {
 
 vector<bool> Game::checkInput(GLFWwindow *window, double deltaTime){
     vector<bool> keys= {false,false,false};
+    if(glfwGetMouseButton(window,GLFW_MOUSE_BUTTON_LEFT)){
+        double xPos, yPos;
+        glfwGetCursorPos(window, &xPos, &yPos);
+        player->shoot(xPos, yPos);
+    }
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
         glfwSetWindowShouldClose(window, true);
     }

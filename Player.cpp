@@ -4,11 +4,12 @@
 
 #include "Player.h"
 
-Player::Player(glm::vec2 position, glm::vec2 scale, glm::vec2 velocity, glm::mat4x3 vecColor, int health, int scWidth, int scHeight) : Object(position, scale, velocity, vecColor, true, scWidth, scHeight) {
+Player::Player(glm::vec2 position, glm::vec2 scale, glm::vec2 velocity, glm::mat4x3 vecColor, int health, int scWidth, int scHeight) : Object(position, scale, velocity, true, scWidth, scHeight) {
     this->health = health;
     this->damageTaken = 0;
     this->damageDone = 0;
     this->grounded = true;
+    this->shots = new vector<Bullet>();
 }
 
 Player::~Player() {
@@ -53,6 +54,10 @@ void Player::move(int move, bool jump, double deltaTime) {
         //cout << velocity.y<< endl;
         velocity.y = 0;
     }
+}
+
+void Player::shoot(double xPos, double yPos){
+    shots->push_back(new Bullet(position, (xPos+1)/2 * scWidth, (yPos+1) /2 * scHeight, scWidth, scHeight));
 }
 
 int Player::getHealth() {

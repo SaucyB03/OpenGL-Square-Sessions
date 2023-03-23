@@ -6,6 +6,7 @@
 #define M3OE_BKSOUCY_PLAYER_H
 
 #include <vector>
+#include "GLFW/glfw3.h"
 
 #include "Object.h"
 #include "Bullet.h"
@@ -20,13 +21,14 @@ private:
     int damageTaken;
     int damageDone;
     bool grounded;
-    vector<Bullet> shots;
+    vector<Bullet*>* shots;
 public:
     Player(glm::vec2 position, glm::vec2 scale, glm::vec2 velocity, glm::mat4x3 vecColor, int health, int scWidth, int scHeight);
     ~Player();
 
     void changeHealth(int deltaHealth);
     void move(int move, bool jump, double deltaTime);
+    void shoot(double xPos, double yPos);
     int getHealth();
     int getDamageDone();
     int getDamageTaken();
