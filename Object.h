@@ -3,6 +3,8 @@
 #ifndef M3OE_BKSOUCY_OBJECT_H
 #define M3OE_BKSOUCY_OBJECT_H
 
+#include "ShaderResources.h"
+
 #include "GL/glew.h"
 #include "GLFW/glfw3.h"
 #include <glm/glm.hpp>
@@ -19,7 +21,6 @@ protected:
     glm::vec2 scale;
     glm::vec2 velocity;
 
-
     float vertices[12];
     unsigned int indices[6] = {  // note that we start from 0!
             0, 1, 3,  // first Triangle
@@ -33,10 +34,10 @@ private:
     void assignBuffandArr();
 
 public:
-    Object(glm::vec2 position, glm::vec2 scale, glm::vec2 velocity, bool dynamic, int scWidth, int scHeight);
+    Object(glm::vec2 position, glm::vec2 scale, glm::vec2 velocity, glm::mat4x3 vecColor, bool dynamic, int scWidth, int scHeight);
     ~Object();
 
-    void move(glm::vec2 transform);
+    void move();
     void display();
 };
 

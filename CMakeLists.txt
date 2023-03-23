@@ -3,6 +3,6 @@ project(M3OE-bksoucy)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(M3OE-bksoucy main.cpp Game.h Game.cpp Object.h Object.cpp Player.h Player.cpp Shader.h Shader.cpp)
+add_executable(M3OE-bksoucy main.cpp Game.h Game.cpp Object.h Object.cpp Player.h Player.cpp Shader.h Shader.cpp ShaderResources.h ShaderResources.cpp)
 target_link_libraries(M3OE-bksoucy -lfreeglut -lglew32 -lopengl32 -lglfw3)
 

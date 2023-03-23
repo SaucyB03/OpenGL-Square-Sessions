@@ -3,7 +3,6 @@
 //
 
 #include "Shader.h"
-#include <GL/glew.h>
 #include <fstream>
 #include <sstream>
 
@@ -84,6 +83,10 @@ void Shader::findErrors(unsigned int errorCheck, char type) {
 
 void Shader::bindShader() {
     glUseProgram(this->program);
+}
+
+void Shader::setUniformMat4(const char *variableName, glm::mat4 &matrix) {
+    glUniformMatrix4fv(glGetUniformLocation(this->program, variableName), 1, false, glm::value_ptr(matrix));
 }
 
 

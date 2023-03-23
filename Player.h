@@ -6,9 +6,11 @@
 #define M3OE_BKSOUCY_PLAYER_H
 
 #include "Object.h"
+#include "ShaderResources.h"
 
 const float MAXPIXPERSEC = 5;
 const float JUMP_VEL = 10;
+
 
 class Player : public Object {
 private:
@@ -16,7 +18,7 @@ private:
     int damageTaken;
     int damageDone;
 public:
-    Player(glm::vec2 position, glm::vec2 scale, glm::vec2 velocity, int health, int scWidth, int scHeight);
+    Player(glm::vec2 position, glm::vec2 scale, glm::vec2 velocity, glm::mat4x3 vecColor, int health, int scWidth, int scHeight);
     ~Player();
 
     void changeHealth(int deltaHealth);

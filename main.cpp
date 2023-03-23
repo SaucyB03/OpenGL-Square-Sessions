@@ -1,3 +1,5 @@
+//spinesquare
+
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
@@ -5,10 +7,10 @@
 #include <chrono>
 
 #include "Game.h"
-#include "Player.h"
-#include "Shader.h"
+#include "ShaderResources.h"
 
 using namespace std;
+
 
 const int SC_WIDTH = 1500;
 const int SC_HEIGHT = 1500;
@@ -49,8 +51,9 @@ int main(){
         return -1;
     }
 
+    ShaderResources::addShader("generalShader");
+
     Game game = *new Game(SC_WIDTH, SC_HEIGHT);
-    Shader shader = *new Shader("../vertexShader.glsl", "../fragmentShader.glsl");
     auto startTime = std::chrono::high_resolution_clock::now();
 
     while(!glfwWindowShouldClose(window)){
@@ -60,11 +63,16 @@ int main(){
         game.checkInput(window, deltaTime);
         //checkInput(window);
 
-        shader.bindShader();
+        ShaderResources::getShader("generalShader").bindShader();
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        game.updateMotion(deltaTime);
+//        glm::mat4 transform = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
+//        transform = glm::translate(transform, glm::vec3(0.0f, 0.0f, 0.0f));
+//        transform = glm::rotate(transform, (float)glfwGetTime(), glm::vec3(0.0f, 0.0f, 1.0f));
+//        shader.setUniformMat4("transform", transform);
+
+        //game.updateMotion(deltaTime);
         game.renderAll();
 
         glfwSwapBuffers(window);

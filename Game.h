@@ -6,11 +6,16 @@
 #define M3OE_BKSOUCY_GAME_H
 
 #include <vector>
-#include "Object.h"
-#include "Player.h"
+#include <memory>
+#include <iostream>
 
 #include "GL/glew.h"
 #include "GLFW/glfw3.h"
+#include "glm/glm.hpp"
+
+#include "Object.h"
+#include "Player.h"
+
 
 using namespace std;
 
@@ -21,16 +26,26 @@ private:
     int scHeight;
     bool menu;
 
+
     Player* player;
-    Object* ground;
-    vector<Object> enemies;
-    vector<Object> platforms;
+    //Object* ground;
+    //vector<Object> enemies;
+    //vector<Object> platforms;
+
+    glm::mat4x3 playerColor = {
+            {1.0f, 0.5f, 0.0f},
+            {1.0f, 0.0f, 0.0f},
+            {0.0f, 0.0f, 1.0f},
+            {0.0f, 1.0f, 0.0f}
+    };
 
 public:
     Game(int scWidth, int scHeight);
 
     void checkCollisions();
     void updateMotion(double deltaTime);
+
+    //Shader returnShader();
 
     void renderAll();
     void checkInput(GLFWwindow *window, double deltaTime);

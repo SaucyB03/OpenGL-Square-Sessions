@@ -7,6 +7,11 @@
 
 
 #include "iostream"
+#include "glm/glm.hpp"
+#include "GL/glew.h"
+#include "GLFW/glfw3.h"
+#include "glm/gtc/type_ptr.hpp"
+
 using namespace std;
 
 class Shader {
@@ -24,7 +29,7 @@ public:
     void bindShader();
 
     //Uniforms:
-
+    void setUniformMat4(const char *variableName, glm::mat4 &matrix);
 };
 
 

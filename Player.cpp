@@ -3,9 +3,8 @@
 //
 
 #include "Player.h"
-#include "Object.h"
 
-Player::Player(glm::vec2 position, glm::vec2 scale, glm::vec2 velocity, int health, int scWidth, int scHeight) : Object(position, scale, velocity, true, scWidth, scHeight) {
+Player::Player(glm::vec2 position, glm::vec2 scale, glm::vec2 velocity, glm::mat4x3 vecColor, int health, int scWidth, int scHeight) : Object(position, scale, velocity, vecColor, true, scWidth, scHeight) {
     this->health = health;
     this->damageTaken = 0;
     this->damageDone = 0;
@@ -21,7 +20,6 @@ void Player::changeHealth(int deltaHealth) {
 
 void Player::move(bool grounded, int move, bool jump, double deltaTime) {
 
-    glm::vec2 oldPos = position;
     /*For move:
      * 0 = idle
      * 1 = left
@@ -47,7 +45,7 @@ void Player::move(bool grounded, int move, bool jump, double deltaTime) {
         velocity.y = 0;
     }
 
-    Object::move(glm::vec2(10, 0));
+    Object::move();
 
 }
 

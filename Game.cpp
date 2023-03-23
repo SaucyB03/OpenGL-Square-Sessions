@@ -3,13 +3,11 @@
 //
 
 #include "Game.h"
-#include "GLFW/glfw3.h"
-#include <iostream>
 
 Game::Game(int scWidth, int scHeight){
     this->scWidth = scWidth;
     this->scHeight = scHeight;
-    player = new Player(glm::vec2(scWidth/2 - PLAYER_DIM/2, scHeight/2 - PLAYER_DIM/2), glm::vec2(PLAYER_DIM,PLAYER_DIM), glm::vec2(0.0,0.0), 100, scHeight, scHeight);
+    player = new Player(glm::vec2(0.0, 0.0), glm::vec2(0.5,0.5), glm::vec2(0.0,0.0), playerColor, 100, scHeight, scHeight);
 
 }
 
@@ -20,8 +18,16 @@ void Game::checkCollisions() {
 void Game::updateMotion(double deltaTime) {
     player->move(false, 0, false, deltaTime);
 }
+//
+//Shader Game::returnShader() {
+//    return shader;
+//}
 
 void Game::renderAll() {
+//    glm::mat4 transform = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
+//    transform = glm::translate(transform, glm::vec3(0.0f, 0.0f, 0.0f));
+//    transform = glm::rotate(transform, (float)glfwGetTime(), glm::vec3(0.0f, 0.0f, 1.0f));
+//    shader->setUniformMat4("transform", transform);
     player->display();
 }
 
@@ -40,4 +46,3 @@ void Game::checkInput(GLFWwindow *window, double deltaTime){
         std::cout << "Key Press: A" << endl;
     }
 }
-
