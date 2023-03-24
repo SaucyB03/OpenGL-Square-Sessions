@@ -16,6 +16,7 @@ void Game::checkCollisions() {
 }
 
 void Game::updateMotion(vector<bool> motion, double deltaTime) {
+    int i;
     if(motion[1]){
         player->move(1, motion[0], deltaTime);
     }else if(motion[2]){
@@ -23,20 +24,25 @@ void Game::updateMotion(vector<bool> motion, double deltaTime) {
     }else{
         player->move(0, motion[0], deltaTime);
     }
+    vector<Bullet*>* shots = player->getCurrentShots();
+    for(i = 0; i < shots->size(); ++i){
+        shots->at(i)->move(deltaTime);
+    }
 }
 
 
 void Game::renderAll() {
+    int i;
     player->display();
+
+    vector<Bullet*>* shots = player->getCurrentShots();
+    for(i = 0; i < shots->size(); ++i){
+        shots->at(i)->display();
+    }
 }
 
-vector<bool> Game::checkInput(GLFWwindow *window, double deltaTime){
+vector<bool> Game::checkKeyInput(GLFWwindow *window, double deltaTime){
     vector<bool> keys= {false,false,false};
-    if(glfwGetMouseButton(window,GLFW_MOUSE_BUTTON_LEFT)){
-        double xPos, yPos;
-        glfwGetCursorPos(window, &xPos, &yPos);
-        player->shoot(xPos, yPos);
-    }
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
         glfwSetWindowShouldClose(window, true);
     }
@@ -50,4 +56,11 @@ vector<bool> Game::checkInput(GLFWwindow *window, double deltaTime){
         keys[1] = true;
     }
     return keys;
+}
+
+void Game::checkMouseInput(GLFWwindow *window, double xPos, double yPos) {
+    if(glfwGetMouseButton(window,GLFW_MOUSE_BUTTON_LEFT)){
+        cout << "x: " << xPos << ", y: " << yPos << endl;
+        player->shoot(xPos, yPos);
+    }
 }

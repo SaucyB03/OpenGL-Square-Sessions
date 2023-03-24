@@ -38,7 +38,7 @@ public:
     Object(glm::vec2 position, glm::vec2 scale, glm::vec2 velocity, bool dynamic, int scWidth, int scHeight);
     ~Object();
 
-    void move();
+    void move(float deltaTime);
     void display();
 };
 

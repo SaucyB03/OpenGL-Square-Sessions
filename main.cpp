@@ -17,12 +17,7 @@ const int SC_HEIGHT = 1600;
 
 //map<const char*, Shader> ShaderResources::allShaders = *new map<const char*, Shader*>();
 
-void checkInput(GLFWwindow *window) {
 
-    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
-        glfwSetWindowShouldClose(window, true);
-    }
-}
 
 int main(){
 
@@ -35,6 +30,7 @@ int main(){
     GLFWwindow* window;
     window = glfwCreateWindow(SC_WIDTH, SC_HEIGHT, "Basic Game", NULL, NULL);
 
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
     if (window == NULL)
     {
         cout << "Failed to create GLFW window" << endl;
@@ -64,8 +60,12 @@ int main(){
 
         startTime = std::chrono::high_resolution_clock::now();
 
+        double xPos, yPos;
+        glfwGetCursorPos(window, &xPos, &yPos);
+        yPos = SC_HEIGHT - yPos;
 
-        vector<bool> motion = game.checkInput(window, deltaTime);
+        vector<bool> motion = game.checkKeyInput(window, deltaTime);
+        game.checkMouseInput(window, xPos, yPos);
 
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);

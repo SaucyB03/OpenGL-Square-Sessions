@@ -6,6 +6,7 @@
 #define M3OE_BKSOUCY_PLAYER_H
 
 #include <vector>
+#include "GL/glew.h"
 #include "GLFW/glfw3.h"
 
 #include "Object.h"
@@ -29,6 +30,7 @@ public:
     void changeHealth(int deltaHealth);
     void move(int move, bool jump, double deltaTime);
     void shoot(double xPos, double yPos);
+    vector<Bullet*>* getCurrentShots();
     int getHealth();
     int getDamageDone();
     int getDamageTaken();

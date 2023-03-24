@@ -9,7 +9,7 @@ Player::Player(glm::vec2 position, glm::vec2 scale, glm::vec2 velocity, glm::mat
     this->damageTaken = 0;
     this->damageDone = 0;
     this->grounded = true;
-    this->shots = new vector<Bullet>();
+    this->shots = new vector<Bullet*>();
 }
 
 Player::~Player() {
@@ -34,7 +34,6 @@ void Player::move(int move, bool jump, double deltaTime) {
     }
 
     if(!grounded){
-        cout << position.y << endl;
         if(position.y > 0  && velocity.y < 0){
             velocity.y -= APPARENT_GRAVITY * deltaTime;
             position.y += velocity.y * deltaTime;
@@ -51,13 +50,19 @@ void Player::move(int move, bool jump, double deltaTime) {
         this->grounded = false;
         velocity.y += JUMP_VEL;
     }else if (grounded){
-        //cout << velocity.y<< endl;
         velocity.y = 0;
     }
 }
 
 void Player::shoot(double xPos, double yPos){
-    shots->push_back(new Bullet(position, (xPos+1)/2 * scWidth, (yPos+1) /2 * scHeight, scWidth, scHeight));
+    cout << "Pew: Ppos: (" << position.x << ", " << position.y << ")" << endl;
+    shots->push_back(new Bullet(position, xPos, yPos, scWidth, scHeight));
+
+}
+
+vector<Bullet*>* Player::getCurrentShots() {
+
+    return shots;
 }
 
 int Player::getHealth() {

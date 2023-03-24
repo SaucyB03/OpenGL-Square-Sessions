@@ -9,13 +9,16 @@
 
 #include "Object.h"
 
-const float SPEED = 3000;
+const float SPEED = 1200;
 
 class Bullet : public Object{
-    ~Bullet();
+private:
+    glm::vec2 calcVelocity(glm::vec2 charPos, float mouseX, float mouseY);
 
 public:
-    Bullet(glm::vec2 charPos, float mouseX, float mouseY, int scWidth, int scHeight);
+    Bullet(glm::vec2 charPos, double mouseX, double mouseY, int scWidth, int scHeight);
+
+    ~Bullet();
 };
 
 

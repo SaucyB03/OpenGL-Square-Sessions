@@ -107,7 +107,7 @@ void Object::move(float deltaTime) {
 void Object::display() {
     shader.bindShader();
 
-    cout << (position.x + scale.x / (float)scWidth) << ", " << (position.y + scale.y / (float)scHeight)<< endl;
+//    cout << (position.x + scale.x / (float)scWidth) << ", " << (position.y + scale.y / (float)scHeight)<< endl;
 
     glm::mat4 transform = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
     transform = glm::translate(transform, glm::vec3((position.x / (float)scWidth), (position.y / (float)scHeight), 0.0f));
@@ -116,4 +116,5 @@ void Object::display() {
 
     glBindVertexArray(this->va); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
 }

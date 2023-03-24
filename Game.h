@@ -48,7 +48,8 @@ public:
     //Shader returnShader();
 
     void renderAll();
-    vector<bool> checkInput(GLFWwindow *window, double deltaTime);
+    vector<bool> checkKeyInput(GLFWwindow *window, double deltaTime);
+    void checkMouseInput(GLFWwindow *window, double xPos, double yPos);
 };
 
 
