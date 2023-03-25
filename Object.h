@@ -43,6 +43,7 @@ public:
 
     glm::vec2 getPosition();
     glm::vec2 getVelocity();
+    glm::vec2 getScale();
 
     void setVelocity(glm::vec2 newVelocity);
 };

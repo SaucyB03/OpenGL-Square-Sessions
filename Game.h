@@ -8,6 +8,7 @@
 #include <vector>
 #include <memory>
 #include <iostream>
+#include <random>
 
 #include "GL/glew.h"
 #include "GLFW/glfw3.h"
@@ -15,6 +16,7 @@
 
 #include "Object.h"
 #include "Player.h"
+#include "Enemy.h"
 
 
 using namespace std;
@@ -27,12 +29,15 @@ private:
     const int COLL_BUFFER = 1;
     int scWidth;
     int scHeight;
-    bool menu;
+    bool endGame;
 
+    int numSpawn = 1;
+    int numWaves = 1;
+
+    double totalTime = 0;
 
     Player* player;
-    //Object* ground;
-    //vector<Object> enemies;
+    vector<Enemy*> enemies;
     vector<Object*> platforms;
 
     glm::mat4x3 playerColor = {
@@ -42,10 +47,13 @@ private:
             {0.0f, 1.0f, 0.0f}
     };
 
+    void defeatedEnemy(int index);
+    glm::vec2 randEnemyPosInit();
+
 public:
     Game(int scWidth, int scHeight);
 
-    void checkCollisions();
+    void checkCollisions(double deltaTime);
     void updateMotion(vector<bool> motion, double deltaTime);
 
     //Shader returnShader();
@@ -53,6 +61,8 @@ public:
     void renderAll();
     vector<bool> checkKeyInput(GLFWwindow *window, double deltaTime);
     void checkMouseInput(GLFWwindow *window, double xPos, double yPos);
+
+    void gameOver(GLFWwindow *window);
 };
 
 

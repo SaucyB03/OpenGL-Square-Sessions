@@ -73,12 +73,13 @@ int main(){
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        game.checkCollisions();
+        game.checkCollisions(deltaTime);
         game.updateMotion(motion, deltaTime);
         game.renderAll();
 
         glfwSwapBuffers(window);
         glfwPollEvents();
+        game.gameOver(window);
     }
     sendData(game);
     glfwTerminate();

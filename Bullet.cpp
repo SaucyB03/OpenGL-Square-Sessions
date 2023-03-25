@@ -32,3 +32,6 @@ Bullet::~Bullet() {
 
 }
 
+int Bullet::getDamage() {
+    return DAMAGE;
+}

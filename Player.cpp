@@ -17,7 +17,7 @@ Player::~Player() {
 
 }
 
-void Player::changeHealth(int deltaHealth) {
+void Player::changeHealth(double deltaHealth) {
     this->health += deltaHealth;
 }
 
@@ -51,7 +51,7 @@ void Player::move(int move, bool jump, double deltaTime) {
         }
     }
 
-    if(grounded && jump){
+    if(grounded && jump && canJump){
         this->grounded = false;
         velocity.y = JUMP_VEL;
     }else if (grounded){
@@ -64,8 +64,7 @@ void Player::move(int move, bool jump, double deltaTime) {
 }
 
 void Player::shoot(double xPos, double yPos){
-
-    shots->push_back(new Bullet({position.x + scale.x/2, position.y + scale.y/2}, xPos, yPos, scWidth, scHeight));
+    shots->push_back(new Bullet({position.x + scale.x/2, position.y + scale.y / 2}, xPos, yPos, scWidth, scHeight));
 }
 
 void Player::deleteShot(int index) {
@@ -84,7 +83,11 @@ bool Player::getGrounded() {
     return grounded;
 }
 
-int Player::getHealth() {
+float Player::getSpeed() {
+    return MAXPIXPERSEC;
+}
+
+double Player::getHealth() {
     return health;
 }
 
@@ -102,5 +105,9 @@ void Player::setGrounded(bool grounded) {
 
 void Player::setDropPlat(int dropSpace) {
     this->dropPlat = position.y - dropSpace;
+}
+
+void Player::setCanJump(bool canJump) {
+    this->canJump = canJump;
 }
 

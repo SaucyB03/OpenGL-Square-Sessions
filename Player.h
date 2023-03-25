@@ -12,23 +12,23 @@
 #include "Object.h"
 #include "Bullet.h"
 
-const float MAXPIXPERSEC = 400;
-const float JUMP_VEL = 1000;
-
 
 class Player : public Object {
 private:
-    int health;
+    const float MAXPIXPERSEC = 400;
+    const float JUMP_VEL = 1000;
+    double health;
     int damageTaken;
     int damageDone;
     bool grounded;
     double dropPlat;
+    bool canJump = true;
     vector<Bullet*>* shots;
 public:
     Player(glm::vec2 position, glm::vec2 scale, glm::vec2 velocity, glm::mat4x3 vecColor, int health, int scWidth, int scHeight);
     ~Player();
 
-    void changeHealth(int deltaHealth);
+    void changeHealth(double deltaHealth);
     void move(int move, bool jump, double deltaTime);
     void shoot(double xPos, double yPos);
 
@@ -37,12 +37,14 @@ public:
     vector<Bullet*>* getCurrentShots();
     double getDropPlat();
     bool getGrounded();
-    int getHealth();
+    float getSpeed();
+    double getHealth();
     int getDamageDone();
     int getDamageTaken();
 
     void setGrounded(bool grounded);
     void setDropPlat(int dropSpace);
+    void setCanJump(bool canJump);
 };
 
 

@@ -128,6 +128,9 @@ glm::vec2 Object::getPosition() {
 glm::vec2 Object::getVelocity() {
     return velocity;
 }
+glm::vec2 Object::getScale() {
+    return scale;
+}
 
 void Object::setVelocity(glm::vec2 newVelocity) {
     this->velocity = newVelocity;
