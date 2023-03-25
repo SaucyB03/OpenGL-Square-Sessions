@@ -96,11 +96,13 @@ Object::~Object() {
 
 
 void Object::move(float deltaTime) {
-    if(velocity.x > 0){
-        position.x += velocity.x * deltaTime;
-    }
-    if(velocity.y > 0){
-        position.y += velocity.y * deltaTime;
+    if(dynamic) {
+        if (velocity.x > 0) {
+            position.x += velocity.x * deltaTime;
+        }
+        if (velocity.y > 0) {
+            position.y += velocity.y * deltaTime;
+        }
     }
 }
 
@@ -110,11 +112,23 @@ void Object::display() {
 //    cout << (position.x + scale.x / (float)scWidth) << ", " << (position.y + scale.y / (float)scHeight)<< endl;
 
     glm::mat4 transform = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
-    transform = glm::translate(transform, glm::vec3((position.x / (float)scWidth), (position.y / (float)scHeight), 0.0f));
+    transform = glm::translate(transform, glm::vec3((position.x * 2 / (float)scWidth), (position.y * 2 / (float)scHeight), 0.0f));
     //transform = glm::translate(transform, glm::vec3(0.0f, 0.1f, 0.0f));
     shader.setUniformMat4("transform", transform);
 
     glBindVertexArray(this->va); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
+}
+
+glm::vec2 Object::getPosition() {
+    return position;
+}
+
+glm::vec2 Object::getVelocity() {
+    return velocity;
+}
+
+void Object::setVelocity(glm::vec2 newVelocity) {
+    this->velocity = newVelocity;
 }

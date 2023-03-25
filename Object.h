@@ -40,6 +40,11 @@ public:
 
     void move(float deltaTime);
     void display();
+
+    glm::vec2 getPosition();
+    glm::vec2 getVelocity();
+
+    void setVelocity(glm::vec2 newVelocity);
 };
 
 

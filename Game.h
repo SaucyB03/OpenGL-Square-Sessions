@@ -22,6 +22,9 @@ using namespace std;
 class Game {
 private:
     const int PLAYER_DIM = 50;
+    const int NUM_PLAT_LEVELS = 4;
+    const int PLAT_THICKNESS = 50;
+    const int COLL_BUFFER = 1;
     int scWidth;
     int scHeight;
     bool menu;
@@ -30,7 +33,7 @@ private:
     Player* player;
     //Object* ground;
     //vector<Object> enemies;
-    //vector<Object> platforms;
+    vector<Object*> platforms;
 
     glm::mat4x3 playerColor = {
             {1.0f, 0.5f, 0.0f},

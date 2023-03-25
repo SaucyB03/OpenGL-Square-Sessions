@@ -22,6 +22,7 @@ private:
     int damageTaken;
     int damageDone;
     bool grounded;
+    double dropPlat;
     vector<Bullet*>* shots;
 public:
     Player(glm::vec2 position, glm::vec2 scale, glm::vec2 velocity, glm::mat4x3 vecColor, int health, int scWidth, int scHeight);
@@ -30,10 +31,18 @@ public:
     void changeHealth(int deltaHealth);
     void move(int move, bool jump, double deltaTime);
     void shoot(double xPos, double yPos);
+
+    void deleteShot(int index);
+
     vector<Bullet*>* getCurrentShots();
+    double getDropPlat();
+    bool getGrounded();
     int getHealth();
     int getDamageDone();
     int getDamageTaken();
+
+    void setGrounded(bool grounded);
+    void setDropPlat(int dropSpace);
 };
 
 

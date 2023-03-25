@@ -9,6 +9,7 @@ Player::Player(glm::vec2 position, glm::vec2 scale, glm::vec2 velocity, glm::mat
     this->damageTaken = 0;
     this->damageDone = 0;
     this->grounded = true;
+    this->dropPlat = 0;
     this->shots = new vector<Bullet*>();
 }
 
@@ -27,18 +28,22 @@ void Player::move(int move, bool jump, double deltaTime) {
      * 1 = left
      * 2 = right*/
 
-    if(move == 1){
+    if(dropPlat != 0 && grounded){
+        grounded = false;
+    }
+
+    if(move == 1 && position.x > 0.0){
         this->position.x -= MAXPIXPERSEC * deltaTime;
-    }else if (move == 2){
+    }else if (move == 2 && position.x + scale.x < scWidth){
         this->position.x += MAXPIXPERSEC * deltaTime;
     }
 
     if(!grounded){
-        if(position.y > 0  && velocity.y < 0){
+        if(position.y > 0  && velocity.y <= 0){
             velocity.y -= APPARENT_GRAVITY * deltaTime;
             position.y += velocity.y * deltaTime;
 
-        }else if(velocity.y > 0){
+        }else if(velocity.y >= 0){
             velocity.y -= APPARENT_GRAVITY * deltaTime;
             position.y += velocity.y * deltaTime;
         }else{
@@ -48,21 +53,34 @@ void Player::move(int move, bool jump, double deltaTime) {
 
     if(grounded && jump){
         this->grounded = false;
-        velocity.y += JUMP_VEL;
+        velocity.y = JUMP_VEL;
     }else if (grounded){
         velocity.y = 0;
+    }
+
+    if(dropPlat != 0 && position.y < dropPlat ){
+        dropPlat = 0;
     }
 }
 
 void Player::shoot(double xPos, double yPos){
-    cout << "Pew: Ppos: (" << position.x << ", " << position.y << ")" << endl;
     shots->push_back(new Bullet(position, xPos, yPos, scWidth, scHeight));
+}
 
+void Player::deleteShot(int index) {
+    this->shots
 }
 
 vector<Bullet*>* Player::getCurrentShots() {
-
     return shots;
+}
+
+double Player::getDropPlat() {
+    return dropPlat;
+}
+
+bool Player::getGrounded() {
+    return grounded;
 }
 
 int Player::getHealth() {
@@ -75,5 +93,13 @@ int Player::getDamageDone() {
 
 int Player::getDamageTaken() {
     return damageTaken;
+}
+
+void Player::setGrounded(bool grounded) {
+    this->grounded = grounded;
+}
+
+void Player::setDropPlat(int dropSpace) {
+    this->dropPlat = position.y - dropSpace;
 }
 
