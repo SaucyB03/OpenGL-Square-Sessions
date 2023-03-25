@@ -17,6 +17,9 @@ const int SC_HEIGHT = 1600;
 
 //map<const char*, Shader> ShaderResources::allShaders = *new map<const char*, Shader*>();
 
+void sendData(Game &game){
+
+}
 
 
 int main(){
@@ -77,6 +80,7 @@ int main(){
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
+    sendData(game);
     glfwTerminate();
     return 0;
 }

@@ -97,10 +97,10 @@ Object::~Object() {
 
 void Object::move(float deltaTime) {
     if(dynamic) {
-        if (velocity.x > 0) {
+        if (velocity.x != 0) {
             position.x += velocity.x * deltaTime;
         }
-        if (velocity.y > 0) {
+        if (velocity.y != 0) {
             position.y += velocity.y * deltaTime;
         }
     }

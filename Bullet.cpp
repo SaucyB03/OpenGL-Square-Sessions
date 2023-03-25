@@ -11,17 +11,16 @@ glm::vec2 Bullet::calcVelocity(glm::vec2 charPos, float mouseX, float mouseY) {
     double hypo = sqrt(pow(deltaX, 2) + pow(deltaY, 2));
     double theta = abs(atan(deltaY / deltaX));
 
-    cout << "theta:" << theta / M_PI * 180<< endl;
-    cout << "deltas: " << deltaX << ", " << deltaY << endl;
+
     if(deltaY < 0 && deltaX < 0) {
-        return {SPEED * cos(theta+ M_PI / 2), SPEED * sin(theta + M_PI )};
+        theta = M_PI + theta;
     }else if(deltaX < 0){
-        return {SPEED * cos(theta + M_PI / 2), SPEED * sin(theta)};
+        theta = M_PI - theta;
     }else if(deltaY < 0){
-        return {SPEED * cos(theta), SPEED * sin(theta + M_PI / 2)};
-    }else{
-        return {SPEED * cos(theta), SPEED * sin(theta)};
+        theta = 2*M_PI - theta;
     }
+
+    return {SPEED * cos(theta), SPEED * sin(theta)};
 
 }
 

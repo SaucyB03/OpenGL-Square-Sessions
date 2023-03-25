@@ -64,11 +64,12 @@ void Player::move(int move, bool jump, double deltaTime) {
 }
 
 void Player::shoot(double xPos, double yPos){
-    shots->push_back(new Bullet(position, xPos, yPos, scWidth, scHeight));
+
+    shots->push_back(new Bullet({position.x + scale.x/2, position.y + scale.y/2}, xPos, yPos, scWidth, scHeight));
 }
 
 void Player::deleteShot(int index) {
-    this->shots
+    this->shots->erase(shots->begin() + index);
 }
 
 vector<Bullet*>* Player::getCurrentShots() {

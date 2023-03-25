@@ -19,7 +19,7 @@ Game::Game(int scWidth, int scHeight){
 void Game::checkCollisions() {
     int i;
     for(i = 0; i < platforms.size(); ++i){
-        if(player->getPosition().y > platforms.at(i)->getPosition().y + PLAT_THICKNESS - COLL_BUFFER && player->getPosition().y < platforms.at(i)->getPosition().y + PLAT_THICKNESS + COLL_BUFFER && player->getVelocity().y < 0 && player->getDropPlat() == 0){
+        if(player->getPosition().y > platforms.at(i)->getPosition().y && player->getPosition().y < platforms.at(i)->getPosition().y + PLAT_THICKNESS + COLL_BUFFER && player->getVelocity().y < 0 && player->getDropPlat() == 0){
             player->setGrounded(true);
         }
     }
