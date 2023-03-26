@@ -211,3 +211,14 @@ void Game::gameOver(GLFWwindow *window) {
         glfwSetWindowShouldClose(window, true);
     }
 }
+
+vector<string> Game::gameInfo() {
+    vector<string> info;
+    //adding players total score:
+    info.push_back(to_string(totalTime * (player->getDamageDone() - player->getDamageTaken())));
+
+    //adding players damage done to enemies
+    info.push_back(to_string(player->getDamageDone()));
+
+    return info;
+}

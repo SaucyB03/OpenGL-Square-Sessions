@@ -68,10 +68,8 @@ public:
     void checkMouseInput(GLFWwindow *window, double xPos, double yPos, double deltaTime);
 
     void gameOver(GLFWwindow *window);
+    vector<string> gameInfo();
 };
-
-
-
 
 
 #endif //M3OE_BKSOUCY_GAME_H
