@@ -72,6 +72,7 @@ void Player::move(int move, bool jump, double deltaTime) {
         }
     }
 
+    //adds vertical velocity if input says to jump and player is grounded
     if(grounded && jump && canJump){
         this->grounded = false;
         velocity.y = JUMP_VEL;
@@ -79,56 +80,80 @@ void Player::move(int move, bool jump, double deltaTime) {
         velocity.y = 0;
     }
 
+    //prevents player from falling through all the platforms
     if(dropPlat != 0 && position.y < dropPlat ){
         dropPlat = 0;
     }
 }
 
+/*Shoot
+ * when called initializes a bullet object and stores it in shots
+ */
 void Player::shoot(double xPos, double yPos){
     shots->push_back(new Bullet({position.x + scale.x/2, position.y + scale.y / 2}, xPos, yPos, bulletColor, scWidth, scHeight));
 }
 
+/*deleteShot
+ * erases the shot at index, index
+ */
 void Player::deleteShot(int index) {
     this->shots->erase(shots->begin() + index);
 }
 
+/*getCurrentShots
+ * returns a vector of the current Bullet objects
+ */
 vector<Bullet*>* Player::getCurrentShots() {
     return shots;
 }
 
+/*getDropPlat
+ * returns dropPlat the bottom of the platform the player rests on
+ */
 double Player::getDropPlat() {
     return dropPlat;
 }
 
+/*getGrounded
+ * returns whether or not the player is grounded
+ */
 bool Player::getGrounded() {
     return grounded;
 }
 
-float Player::getSpeed() {
-    return MAXPIXPERSEC;
-}
-
+/*getHealth
+ * returns the players current health
+ */
 double Player::getHealth() {
     return health;
 }
 
+/*getDamageDone
+ * returns the damage to enemies the player has done
+ */
 int Player::getDamageDone() {
     return damageDone;
 }
 
+/*getDamageTaken
+ * returns the total damage the player has taken
+ */
 int Player::getDamageTaken() {
     return damageTaken;
 }
 
+/*setGrounded
+ * sets whether the player is grounded or not
+ */
 void Player::setGrounded(bool grounded) {
     this->grounded = grounded;
 }
 
+/* setDropPlat
+ * sets the y position the player can freefall to before it
+ * will interact with platforms again
+ */
 void Player::setDropPlat(int dropSpace) {
     this->dropPlat = position.y - dropSpace;
-}
-
-void Player::setCanJump(bool canJump) {
-    this->canJump = canJump;
 }
 

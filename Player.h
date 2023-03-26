@@ -22,7 +22,6 @@ private:
     int damageDone;
     bool grounded;
     double dropPlat;
-    bool canJump = true;
     vector<Bullet*>* shots;
 
     glm::vec3 bulletColor = {0.5, 0.5, 0.5};
@@ -42,22 +41,54 @@ public:
      * adjusts players health when player takes damage
      */
     void addDamageDone(int damage);
+    /*Player Move
+     * Based off user input this method calculates physics to allow for the character to
+     * move L/R or jump and utilizes the delta Time input to make it consistent
+     */
     void move(int move, bool jump, double deltaTime);
+    /*Shoot
+     * when called initializes a bullet object and stores it in shots
+     */
     void shoot(double xPos, double yPos);
-
+    /*deleteShot
+     * erases the shot at index, index
+     */
     void deleteShot(int index);
 
+    /*getCurrentShots
+     * returns a vector of the current Bullet objects
+     */
     vector<Bullet*>* getCurrentShots();
+    /*getDropPlat
+     * returns dropPlat the bottom of the platform the player rests on
+     */
     double getDropPlat();
+    /*getGrounded
+     * returns whether or not the player is grounded
+     */
     bool getGrounded();
-    float getSpeed();
+    /*getHealth
+     * returns the players current health
+     */
     double getHealth();
+    /*getDamageDone
+     * returns the damage to enemies the player has done
+     */
     int getDamageDone();
+    /*getDamageTaken
+     * returns the total damage the player has taken
+     */
     int getDamageTaken();
 
+    /*setGrounded
+     * sets whether the player is grounded or not
+     */
     void setGrounded(bool grounded);
+    /* setDropPlat
+     * sets the y position the player can freefall to before it
+     * will interact with platforms again
+     */
     void setDropPlat(int dropSpace);
-    void setCanJump(bool canJump);
 };
 
 
