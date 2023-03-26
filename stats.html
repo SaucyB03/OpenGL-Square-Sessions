@@ -1,19 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php
+include 'main.cpp';
+$myFile = "spinnysquare.txt";
+$lines = file($myFile);
+var_dump($lines);
+
+unset($lines[0]);
+unset($lines[1]);
+
+foreach($lines as $line) 
+{
+    $var = explode(':', $line, 2);
+    $arr[$var[0]] = $var[1];
+}
+
+print_r($arr);?>
+  
+
 	<head>
 	<meta charset="utf-8">
 	<meta name="author" content="Kamila Jablonowski & Bradon Keller Soucy">
 	<title>Your Stats</title>
 	<meta name="description" content="This page is for disaplying your stats in the Game we made.">
         <link href="style.css" rel="stylesheet" type="text/css" media="screen" />
-    </head>
-    <body>
 	<header>
 	<h1>Your Stats:</h1>
-</header>	
-<?php
-include 'spinnysquare.txt';
-?>
-	</body>
+	</header>
+</head>
 </html>
-
