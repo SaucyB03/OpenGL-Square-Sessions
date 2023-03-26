@@ -1,23 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-<?php
-include 'main.cpp';
-$myFile = "spinnysquare.txt";
-$lines = file($myFile);
-var_dump($lines);
-
-unset($lines[0]);
-unset($lines[1]);
-
-foreach($lines as $line) 
-{
-    $var = explode(':', $line, 2);
-    $arr[$var[0]] = $var[1];
-}
-
-print_r($arr);?>
-  
-
+<html lang="en"> 
 	<head>
 	<meta charset="utf-8">
 	<meta name="author" content="Kamila Jablonowski & Bradon Keller Soucy">
@@ -28,4 +10,25 @@ print_r($arr);?>
 	<h1>Your Stats:</h1>
 	</header>
 </head>
+
+<body>
+<?php
+include 'spinnysquare.txt';
+$myFile = "spinnysquare.txt";
+$lines = file($myFile);
+var_dump($lines);
+
+unset($lines[0]);
+unset($lines[1]);
+
+// iterate through array
+foreach($lines as $row) {
+    // check if the format of this row is correct
+    if(preg_match('/^([^:]*): (.*)$/', $row, $matches)) {
+        // get matched data - key and value
+        $data[$matches[1]][] = $matches[2];
+    }
+}
+var_dump($data);
+</body>
 </html>
