@@ -15,7 +15,8 @@
 <?php
 <?php
 if ($_GET['run']) {
-  exec(realpath("main.cpp"));
+  $command = escapeshellcmd(realpath("main.cpp");
+  shel_exec($command);
 }
 ?>
 <a href="?run=true">Run Me!</a>
