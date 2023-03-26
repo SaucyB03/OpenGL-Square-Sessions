@@ -32,6 +32,11 @@ private:
     bool dynamic;
     //Add necessary buffers
     unsigned int va, vb, eb;
+
+    /* assignBuffandArr
+     * Assigned the Buffers and Vertex arrays for this object as well as store the information in a
+     * Element array Buffer, which allows us to put 2 triangles together and have OpenGL know what to do
+     */
     void assignBuffandArr();
 
 public:
