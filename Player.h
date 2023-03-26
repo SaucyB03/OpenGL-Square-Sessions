@@ -18,7 +18,7 @@ private:
     const float MAXPIXPERSEC = 400;
     const float JUMP_VEL = 1000;
     double health;
-    int damageTaken;
+    double damageTaken;
     int damageDone;
     bool grounded;
     double dropPlat;
@@ -31,6 +31,7 @@ public:
     ~Player();
 
     void changeHealth(double deltaHealth);
+    void addDamageDone(int damage);
     void move(int move, bool jump, double deltaTime);
     void shoot(double xPos, double yPos);
 

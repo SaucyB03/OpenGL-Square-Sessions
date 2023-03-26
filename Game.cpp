@@ -61,17 +61,13 @@ void Game::checkCollisions(double deltaTime) {
     vector<Bullet*>* currentShots = player->getCurrentShots();
     int size = currentShots->size();
 
-    cout << " ----------------- " << endl;
     for (i = 0; i <= size-1; ++i) {
-        cout << "dawg "<< size - 1 << " i : " << i << endl;
         if (currentShots->at(i)->getPosition().x < 0.0 || currentShots->at(i)->getPosition().x > scWidth ||
             currentShots->at(i)->getPosition().y < 0.0 || currentShots->at(i)->getPosition().y > scHeight) {
-            cout << "ok" << endl;
             try {
                 player->deleteShot(i);
                 size = currentShots->size();
             }catch(out_of_range e){
-                cout << "ughghgh" << endl;
                 throw e;
                 terminate();
             }
@@ -84,24 +80,21 @@ void Game::checkCollisions(double deltaTime) {
                     enemies.at(j)->getPosition().y + enemies.at(j)->getScale().y &&
                     currentShots->at(i)->getPosition().y >= enemies.at(j)->getPosition().y) {
                     bool dead = enemies.at(j)->changeHealth(currentShots->at(i)->getDamage());
+                    player->addDamageDone(currentShots->at(i)->getDamage());
                     if (dead) {
                         defeatedEnemy(j);
                     }
 
-                    cout << "word" <<endl;
                     try {
                         player->deleteShot(i);
                         size = currentShots->size();
                     }catch(out_of_range e){
-                        cout << "nah" << endl;
                         throw e;
                         terminate();
                     }
-                    cout << "cleared" << endl;
                 }
             }
         }
-        cout << "what the freak: " << size - 1 << " i : " << i << endl;
     }
 
     for(i = 0; i < enemies.size(); ++i){

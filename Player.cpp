@@ -18,7 +18,12 @@ Player::~Player() {
 }
 
 void Player::changeHealth(double deltaHealth) {
-    this->health += deltaHealth;
+    health += deltaHealth;
+    damageTaken -= deltaHealth;
+}
+
+void Player::addDamageDone(int damage) {
+    damageDone += damage;
 }
 
 void Player::move(int move, bool jump, double deltaTime) {
