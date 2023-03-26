@@ -1,8 +1,11 @@
 
 body {
-	color: #39FF14;
-	background-color: black;
+	color: black;
+	background-color: #39FF14;
 	margin: 3%;
+	border-top: 2px;
+	border-bottom: 2px;
+	text-align: center;
 }
 header {
 	padding-top: 10px;
@@ -14,10 +17,4 @@ header {
 	margin-left: -10px;
 	margin-right: -10px;
 }
-code {
-	display: inline-block;
-	padding: 10px;
-	background-color: green;
-	border: 1px solid black;
-	color: black;
-}
+
