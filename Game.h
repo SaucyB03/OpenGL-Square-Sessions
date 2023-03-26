@@ -49,7 +49,7 @@ private:
     ShaderManager shaderManager;
 
     glm::vec3 playerColor = {1.0f, 0.5f, 0.2f};
-    glm::vec3 enemyColor = {1.0f, 0.5f, 0.0f};
+    glm::vec3 enemyColor = {1.0f, 0.0f, 0.0f};
     glm::vec3 platformColor = {0.0,0.0,0.0};
 
     void defeatedEnemy(int index);

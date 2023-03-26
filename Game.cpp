@@ -14,7 +14,7 @@ void Game::defeatedEnemy(int index) {
     if(enemies.empty()){
         numWaves++;
         for(int i = 0; i < numSpawn; ++i) {
-            enemies.push_back(new Enemy(randEnemyPosInit(), {scWidth / 10, scHeight / 10}, {0.0, 0.0}, playerColor, 100, scWidth, scHeight));
+            enemies.push_back(new Enemy(randEnemyPosInit(), {scWidth / 10, scHeight / 10}, {0.0, 0.0}, enemyColor, 100, scWidth, scHeight));
         }
     }
 }
