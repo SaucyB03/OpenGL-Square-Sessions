@@ -13,22 +13,11 @@
 
 <body>
 <?php
-include 'spinnysquare.txt';
-$myFile = "spinnysquare.txt";
-$lines = file($myFile);
-var_dump($lines);
-
-unset($lines[0]);
-unset($lines[1]);
-
-// iterate through array
-foreach($lines as $row) {
-    // check if the format of this row is correct
-    if(preg_match('/^([^:]*): (.*)$/', $row, $matches)) {
-        // get matched data - key and value
-        $data[$matches[1]][] = $matches[2];
-    }
+<?php
+if ($_GET['run']) {
+  exec(realpath("main.cpp");
 }
-var_dump($data);?>
+?>
+<a href="?run=true">Run Me!</a>
 </body>
 </html>
