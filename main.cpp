@@ -20,6 +20,7 @@ void sendData(Game &game, string name){
     vector<string> playerData = game.gameInfo();
     playerData.insert(playerData.begin(), name);
 
+    //Saves info to file
     ofstream spinSquare;
     spinSquare.open("../spinnysquare.txt", ios_base::app);
     spinSquare << "{";

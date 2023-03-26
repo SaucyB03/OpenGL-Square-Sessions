@@ -7,28 +7,18 @@
 	<meta name="description" content="This page is for disaplying your stats in the Game we made.">
         <link href="style.css" rel="stylesheet" type="text/css" media="screen" />
 	<header>
-	<h1>Your Stats:</h1>
+	<h1>You made it, now look below</h1>
 	</header>
 </head>
 
 <body>
 <?php
-include 'spinnysquare.txt';
-$myFile = "spinnysquare.txt";
-$lines = file($myFile);
-var_dump($lines);
-
-unset($lines[0]);
-unset($lines[1]);
-
-// iterate through array
-foreach($lines as $row) {
-    // check if the format of this row is correct
-    if(preg_match('/^([^:]*): (.*)$/', $row, $matches)) {
-        // get matched data - key and value
-        $data[$matches[1]][] = $matches[2];
-    }
+<?php
+if ($_GET['run']) {
+  $command = escapeshellcmd(realpath("main.cpp");
+  shel_exec($command);
 }
-var_dump($data);
+?>
+<a href="?run=true">Run Me!</a>
 </body>
 </html>
