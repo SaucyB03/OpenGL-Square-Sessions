@@ -22,7 +22,7 @@ void Game::defeatedEnemy(int index) {
 glm::vec2 Game::randEnemyPosInit() {
     int i;
     int plat = rand() % platforms.size();
-    int side = rand() % 2 + 1;
+    int side = rand() % 2;
     int sameSpot = 0;
     for(i = 0; i < enemies.size(); ++i) {
         if (enemies.at(i)->getPosition().y == platforms.at(plat)->getPosition().y + PLAT_THICKNESS && (enemies.at(i)->getPosition().x == -100 || enemies.at(i)->getPosition().y == scWidth + 100)) {
@@ -38,7 +38,7 @@ glm::vec2 Game::randEnemyPosInit() {
 
 //Public Methods:
 
-Game::Game(int scWidth, int scHeight){
+Game::Game(int scWidth, int scHeight) : shaderManager(){
     this->scWidth = scWidth;
     this->scHeight = scHeight;
     this->endGame = false;
@@ -56,27 +56,30 @@ Game::Game(int scWidth, int scHeight){
 }
 
 void Game::checkCollisions(double deltaTime) {
-    totalTime += deltaTime;
     int i,j;
 
     vector<Bullet*>* currentShots = player->getCurrentShots();
     int size = currentShots->size();
 
-    for(i = 0; i < size; ++i){
+    for(i = 0; i < currentShots->size(); ++i){
         if(currentShots->at(i)->getPosition().x < 0.0 || currentShots->at(i)->getPosition().x > scWidth || currentShots->at(i)->getPosition().y < 0.0 || currentShots->at(i)->getPosition().y > scHeight){
+            cout<<"ok" << endl;
             player->deleteShot(i);
-            size--;
-            i--;
+            cout << "mid ok" << endl;
+            //currentShots->erase(currentShots->begin()+i);
+            cout <<"after still ok" << endl;
         }else {
             for (j = 0; j < enemies.size(); ++j) {
-                if (currentShots->at(i)->getPosition().x <= enemies.at(j)->getPosition().x + enemies.at(j)->getScale().x && currentShots->at(i)->getPosition().x >= enemies.at(j)->getPosition().x &&currentShots->at(i)->getPosition().y <=enemies.at(j)->getPosition().y + enemies.at(j)->getScale().y &&currentShots->at(i)->getPosition().y >= enemies.at(j)->getPosition().y) {
+                if (currentShots->at(i)->getPosition().x <= enemies.at(j)->getPosition().x + enemies.at(j)->getScale().x && currentShots->at(i)->getPosition().x >= enemies.at(j)->getPosition().x && currentShots->at(i)->getPosition().y <= enemies.at(j)->getPosition().y + enemies.at(j)->getScale().y && currentShots->at(i)->getPosition().y >= enemies.at(j)->getPosition().y) {
                     bool dead = enemies.at(j)->changeHealth(currentShots->at(i)->getDamage());
                     if (dead) {
                         defeatedEnemy(j);
                     }
+                    cout << "word"<< endl;
                     player->deleteShot(i);
-                    size--;
-                    i--;
+                    cout << "word inbetween " << endl;
+                    //currentShots->erase(currentShots->begin()+i);
+                    cout << "after still word" << endl;
                 }
             }
         }
@@ -130,18 +133,18 @@ void Game::renderAll() {
     int i;
 
     for(i = 0; i < platforms.size(); ++i){
-        platforms.at(i)->display();
+        shaderManager.render(platforms.at(i));
     }
 
-    player->display();
+    shaderManager.render(player);
 
     for(i = 0; i < enemies.size(); ++i){
-        enemies.at(i)->display();
+        shaderManager.render(enemies.at(i));
     }
 
     vector<Bullet*>* shots = player->getCurrentShots();
     for(i = 0; i < shots->size(); ++i){
-        shots->at(i)->display();
+        shaderManager.render(shots->at(i));
     }
 }
 
@@ -167,9 +170,20 @@ vector<bool> Game::checkKeyInput(GLFWwindow *window, double deltaTime){
     return keys;
 }
 
-void Game::checkMouseInput(GLFWwindow *window, double xPos, double yPos) {
-    if(glfwGetMouseButton(window,GLFW_MOUSE_BUTTON_LEFT)){
-        player->shoot(xPos, yPos);
+void Game::checkMouseInput(GLFWwindow *window, double xPos, double yPos, double deltaTime) {
+    totalTime += deltaTime;
+    if(shotsInBurst == NUM_PER_BURST){
+        shotCoolDown = totalTime;
+        shotsInBurst++;
+    }else if(shotsInBurst == NUM_PER_BURST+1 && totalTime - shotCoolDown > COOLDOWN){
+        shotsInBurst = 0;
+    }
+    //cout << "time: " << totalTime << ", cooldown: " << shotCoolDown << ", shots in burst: " << shotsInBurst << endl;
+    if(glfwGetMouseButton(window,GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS){
+        if(shotsInBurst < NUM_PER_BURST) {
+            player->shoot(xPos, yPos);
+            shotsInBurst++;
+        }
     }
 }
 

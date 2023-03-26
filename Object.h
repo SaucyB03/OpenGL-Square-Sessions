@@ -16,7 +16,6 @@ protected:
     int scWidth;
     int scHeight;
 
-    Shader shader;
 
     glm::vec2 position;
     glm::vec2 scale;
@@ -39,7 +38,7 @@ public:
     ~Object();
 
     void move(float deltaTime);
-    void display();
+    void display(Shader* shader);
 
     glm::vec2 getPosition();
     glm::vec2 getVelocity();

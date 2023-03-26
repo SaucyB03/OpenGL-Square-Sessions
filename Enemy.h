@@ -11,8 +11,8 @@
 
 class Enemy : public Object {
 private:
-    const float MAXPIXPERSEC = 300;
-    const float JUMP_VEL = 1000;
+    const float MAXPIXPERSEC = 250;
+    const float JUMP_VEL = 800;
     int health;
     bool grounded;
     double dropPlat;

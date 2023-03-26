@@ -14,6 +14,7 @@
 #include "GLFW/glfw3.h"
 #include "glm/glm.hpp"
 
+#include "ShaderManager.h"
 #include "Object.h"
 #include "Player.h"
 #include "Enemy.h"
@@ -27,6 +28,8 @@ private:
     const int NUM_PLAT_LEVELS = 4;
     const int PLAT_THICKNESS = 50;
     const int COLL_BUFFER = 1;
+    const int NUM_PER_BURST = 20;
+    const double COOLDOWN = 0.5;
     int scWidth;
     int scHeight;
     bool endGame;
@@ -34,11 +37,16 @@ private:
     int numSpawn = 1;
     int numWaves = 1;
 
+    int shotsInBurst = 0;
+    double shotCoolDown = 0;
+
     double totalTime = 0;
 
     Player* player;
     vector<Enemy*> enemies;
     vector<Object*> platforms;
+
+    ShaderManager shaderManager;
 
     glm::mat4x3 playerColor = {
             {1.0f, 0.5f, 0.0f},
@@ -60,7 +68,7 @@ public:
 
     void renderAll();
     vector<bool> checkKeyInput(GLFWwindow *window, double deltaTime);
-    void checkMouseInput(GLFWwindow *window, double xPos, double yPos);
+    void checkMouseInput(GLFWwindow *window, double xPos, double yPos, double deltaTime);
 
     void gameOver(GLFWwindow *window);
 };
