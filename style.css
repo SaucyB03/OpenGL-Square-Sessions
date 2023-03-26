@@ -1,16 +1,19 @@
 
 body {
 	color: #39FF14;
-	background-color: black;
-	margin: 3%;
+	background-color: #39FF14;
+        margin: 3%;
+        border-top: 2px;
+        border-bottom: 2px;
+        text-align: center;
 }
 header {
-	padding-top: 10px;
-	padding-bottom: 10px;
-	text-align: center;
-	background-color: black;
-	border-top: 1px solid #39FF14;
-	border-bottom: 1px solid #39FF14;
-	margin-left: -10px;
-	margin-right: -10px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        text-align: center;
+        background-color: black;
+        border-top: 1px solid #39FF14;
+        border-bottom: 1px solid #39FF14;
+        margin-left: -10px;
+        margin-right: -10px;
 }
