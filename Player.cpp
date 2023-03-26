@@ -73,7 +73,7 @@ void Player::move(int move, bool jump, double deltaTime) {
     }
 
     //adds vertical velocity if input says to jump and player is grounded
-    if(grounded && jump && canJump){
+    if(grounded && jump){
         this->grounded = false;
         velocity.y = JUMP_VEL;
     }else if (grounded){
