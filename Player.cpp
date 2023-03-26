@@ -4,7 +4,7 @@
 
 #include "Player.h"
 
-Player::Player(glm::vec2 position, glm::vec2 scale, glm::vec2 velocity, glm::mat4x3 vecColor, int health, int scWidth, int scHeight) : Object(position, scale, velocity, true, scWidth, scHeight) {
+Player::Player(glm::vec2 position, glm::vec2 scale, glm::vec2 velocity, glm::vec3 color, int health, int scWidth, int scHeight) : Object(position, scale, velocity, color, true, scWidth, scHeight) {
     this->health = health;
     this->damageTaken = 0;
     this->damageDone = 0;
@@ -64,7 +64,7 @@ void Player::move(int move, bool jump, double deltaTime) {
 }
 
 void Player::shoot(double xPos, double yPos){
-    shots->push_back(new Bullet({position.x + scale.x/2, position.y + scale.y / 2}, xPos, yPos, scWidth, scHeight));
+    shots->push_back(new Bullet({position.x + scale.x/2, position.y + scale.y / 2}, xPos, yPos, bulletColor, scWidth, scHeight));
 }
 
 void Player::deleteShot(int index) {

@@ -17,7 +17,7 @@ private:
     glm::vec2 calcVelocity(glm::vec2 charPos, float mouseX, float mouseY);
 
 public:
-    Bullet(glm::vec2 charPos, double mouseX, double mouseY, int scWidth, int scHeight);
+    Bullet(glm::vec2 charPos, double mouseX, double mouseY, glm::vec3 color, int scWidth, int scHeight);
 
     ~Bullet();
 

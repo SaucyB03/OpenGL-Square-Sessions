@@ -50,13 +50,14 @@ void Object::assignBuffandArr(){
 
 //Public//////////
 
-Object::Object(glm::vec2 position, glm::vec2 scale, glm::vec2 velocity, bool dynamic, int scWidth, int scHeight){
+Object::Object(glm::vec2 position, glm::vec2 scale, glm::vec2 velocity, glm::vec3 color, bool dynamic, int scWidth, int scHeight){
     this->position = position;
     this->scale = scale;
     this->velocity = velocity;
     this->dynamic = dynamic;
     this->scWidth = scWidth;
     this->scHeight = scHeight;
+    this->color = color;
 
 
     float verts[] = {
@@ -106,6 +107,7 @@ void Object::display(Shader* shader) {
     transform = glm::translate(transform, glm::vec3((position.x * 2 / (float)scWidth), (position.y * 2 / (float)scHeight), 0.0f));
     //transform = glm::translate(transform, glm::vec3(0.0f, 0.1f, 0.0f));
     shader->setUniformMat4("transform", transform);
+    shader->setVec3("color", color);
 
     glBindVertexArray(this->va); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);

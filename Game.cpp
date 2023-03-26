@@ -46,12 +46,12 @@ Game::Game(int scWidth, int scHeight) : shaderManager(){
 
     int i;
     for(i = 0; i < NUM_PLAT_LEVELS; ++i){
-        platforms.push_back(new Object(glm::vec2(0.0, (scHeight / NUM_PLAT_LEVELS) * i), glm::vec2(scWidth,50), glm::vec2(0.0,0.0), false, scWidth, scHeight));
+        platforms.push_back(new Object(glm::vec2(0.0, (scHeight / NUM_PLAT_LEVELS) * i), glm::vec2(scWidth,50), glm::vec2(0.0,0.0), platformColor, false, scWidth, scHeight));
     }
 
     player = new Player({scWidth/2 , PLAT_THICKNESS}, {scWidth / 10,scHeight / 10}, {0.0,0.0}, playerColor, 100, scWidth, scHeight);
 
-    enemies.push_back(new Enemy(randEnemyPosInit(), {scWidth / 10,scHeight / 10}, {0.0,0.0}, playerColor, 100,scWidth, scHeight));
+    enemies.push_back(new Enemy(randEnemyPosInit(), {scWidth / 10,scHeight / 10}, {0.0,0.0}, enemyColor, 100,scWidth, scHeight));
 
 }
 
@@ -61,28 +61,47 @@ void Game::checkCollisions(double deltaTime) {
     vector<Bullet*>* currentShots = player->getCurrentShots();
     int size = currentShots->size();
 
-    for(i = 0; i < currentShots->size(); ++i){
-        if(currentShots->at(i)->getPosition().x < 0.0 || currentShots->at(i)->getPosition().x > scWidth || currentShots->at(i)->getPosition().y < 0.0 || currentShots->at(i)->getPosition().y > scHeight){
-            cout<<"ok" << endl;
-            player->deleteShot(i);
-            cout << "mid ok" << endl;
-            //currentShots->erase(currentShots->begin()+i);
-            cout <<"after still ok" << endl;
-        }else {
+    cout << " ----------------- " << endl;
+    for (i = 0; i <= size-1; ++i) {
+        cout << "dawg "<< size - 1 << " i : " << i << endl;
+        if (currentShots->at(i)->getPosition().x < 0.0 || currentShots->at(i)->getPosition().x > scWidth ||
+            currentShots->at(i)->getPosition().y < 0.0 || currentShots->at(i)->getPosition().y > scHeight) {
+            cout << "ok" << endl;
+            try {
+                player->deleteShot(i);
+                size = currentShots->size();
+            }catch(out_of_range e){
+                cout << "ughghgh" << endl;
+                throw e;
+                terminate();
+            }
+        } else {
             for (j = 0; j < enemies.size(); ++j) {
-                if (currentShots->at(i)->getPosition().x <= enemies.at(j)->getPosition().x + enemies.at(j)->getScale().x && currentShots->at(i)->getPosition().x >= enemies.at(j)->getPosition().x && currentShots->at(i)->getPosition().y <= enemies.at(j)->getPosition().y + enemies.at(j)->getScale().y && currentShots->at(i)->getPosition().y >= enemies.at(j)->getPosition().y) {
+                if (currentShots->at(i)->getPosition().x <=
+                    enemies.at(j)->getPosition().x + enemies.at(j)->getScale().x &&
+                    currentShots->at(i)->getPosition().x >= enemies.at(j)->getPosition().x &&
+                    currentShots->at(i)->getPosition().y <=
+                    enemies.at(j)->getPosition().y + enemies.at(j)->getScale().y &&
+                    currentShots->at(i)->getPosition().y >= enemies.at(j)->getPosition().y) {
                     bool dead = enemies.at(j)->changeHealth(currentShots->at(i)->getDamage());
                     if (dead) {
                         defeatedEnemy(j);
                     }
-                    cout << "word"<< endl;
-                    player->deleteShot(i);
-                    cout << "word inbetween " << endl;
-                    //currentShots->erase(currentShots->begin()+i);
-                    cout << "after still word" << endl;
+
+                    cout << "word" <<endl;
+                    try {
+                        player->deleteShot(i);
+                        size = currentShots->size();
+                    }catch(out_of_range e){
+                        cout << "nah" << endl;
+                        throw e;
+                        terminate();
+                    }
+                    cout << "cleared" << endl;
                 }
             }
         }
+        cout << "what the freak: " << size - 1 << " i : " << i << endl;
     }
 
     for(i = 0; i < enemies.size(); ++i){

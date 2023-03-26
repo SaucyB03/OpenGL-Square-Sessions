@@ -24,7 +24,7 @@ glm::vec2 Bullet::calcVelocity(glm::vec2 charPos, float mouseX, float mouseY) {
 
 }
 
-Bullet::Bullet(glm::vec2 charPos, double mouseX, double mouseY, int scWidth, int scHeight) : Object(charPos, glm::vec2(10,10), calcVelocity(charPos, mouseX, mouseY), true, scWidth, scHeight){
+Bullet::Bullet(glm::vec2 charPos, double mouseX, double mouseY, glm::vec3 color, int scWidth, int scHeight) : Object(charPos, glm::vec2(10,10), calcVelocity(charPos, mouseX, mouseY), color, true, scWidth, scHeight){
 
 }
 

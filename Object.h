@@ -20,6 +20,7 @@ protected:
     glm::vec2 position;
     glm::vec2 scale;
     glm::vec2 velocity;
+    glm::vec3 color;
 
     float vertices[12];
     unsigned int indices[6] = {  // note that we start from 0!
@@ -34,7 +35,7 @@ private:
     void assignBuffandArr();
 
 public:
-    Object(glm::vec2 position, glm::vec2 scale, glm::vec2 velocity, bool dynamic, int scWidth, int scHeight);
+    Object(glm::vec2 position, glm::vec2 scale, glm::vec2 velocity, glm::vec3 color, bool dynamic, int scWidth, int scHeight);
     ~Object();
 
     void move(float deltaTime);

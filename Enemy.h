@@ -19,7 +19,7 @@ private:
     bool jump;
 
 public:
-    Enemy(glm::vec2 position, glm::vec2 scale, glm::vec2 velocity, glm::mat4x3 vecColor, int health, int scWidth, int scHeight);
+    Enemy(glm::vec2 position, glm::vec2 scale, glm::vec2 velocity, glm::vec3 color, int health, int scWidth, int scHeight);
     ~Enemy();
 
     bool changeHealth(int deltaHealth);

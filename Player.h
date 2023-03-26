@@ -24,8 +24,10 @@ private:
     double dropPlat;
     bool canJump = true;
     vector<Bullet*>* shots;
+
+    glm::vec3 bulletColor = {0.5, 0.5, 0.5};
 public:
-    Player(glm::vec2 position, glm::vec2 scale, glm::vec2 velocity, glm::mat4x3 vecColor, int health, int scWidth, int scHeight);
+    Player(glm::vec2 position, glm::vec2 scale, glm::vec2 velocity, glm::vec3 color, int health, int scWidth, int scHeight);
     ~Player();
 
     void changeHealth(double deltaHealth);

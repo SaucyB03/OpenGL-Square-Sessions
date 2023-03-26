@@ -28,7 +28,7 @@ private:
     const int NUM_PLAT_LEVELS = 4;
     const int PLAT_THICKNESS = 50;
     const int COLL_BUFFER = 1;
-    const int NUM_PER_BURST = 20;
+    const int NUM_PER_BURST = 100;
     const double COOLDOWN = 0.5;
     int scWidth;
     int scHeight;
@@ -48,12 +48,9 @@ private:
 
     ShaderManager shaderManager;
 
-    glm::mat4x3 playerColor = {
-            {1.0f, 0.5f, 0.0f},
-            {1.0f, 0.0f, 0.0f},
-            {0.0f, 0.0f, 1.0f},
-            {0.0f, 1.0f, 0.0f}
-    };
+    glm::vec3 playerColor = {1.0f, 0.5f, 0.2f};
+    glm::vec3 enemyColor = {1.0f, 0.5f, 0.0f};
+    glm::vec3 platformColor = {0.0,0.0,0.0};
 
     void defeatedEnemy(int index);
     glm::vec2 randEnemyPosInit();

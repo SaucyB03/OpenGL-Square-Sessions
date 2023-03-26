@@ -30,6 +30,7 @@ public:
 
     //Uniforms:
     void setUniformMat4(const char *variableName, glm::mat4 &matrix);
+    void setVec3(const char *variableName, glm::vec3 &vector);
 };
 
 

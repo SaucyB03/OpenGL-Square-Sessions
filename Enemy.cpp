@@ -4,7 +4,7 @@
 
 #include "Enemy.h"
 
-Enemy::Enemy(glm::vec2 position, glm::vec2 scale, glm::vec2 velocity, glm::mat4x3 vecColor, int health, int scWidth, int scHeight) : Object(position,scale,velocity,true,scWidth,scHeight) {
+Enemy::Enemy(glm::vec2 position, glm::vec2 scale, glm::vec2 velocity, glm::vec3 color, int health, int scWidth, int scHeight) : Object(position, scale, velocity, color, true, scWidth, scHeight) {
     this->health = health;
     this->grounded = true;
     this->dropPlat = 0;

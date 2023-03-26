@@ -52,8 +52,6 @@ int main(){
         return -1;
     }
 
-
-
     Game game = *new Game(SC_WIDTH, SC_HEIGHT);
     auto startTime = std::chrono::high_resolution_clock::now();
 
