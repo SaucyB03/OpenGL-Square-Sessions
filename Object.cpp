@@ -83,7 +83,7 @@ Object::Object(glm::vec2 position, glm::vec2 scale, glm::vec2 velocity, glm::vec
     assignBuffandArr();
 }
 
-//Destructor:
+//Destructor: deletes the created buffers
 Object::~Object() {
     glDeleteBuffers(GL_ELEMENT_ARRAY_BUFFER, &this->eb);
 }

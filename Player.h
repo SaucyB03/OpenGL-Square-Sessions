@@ -26,11 +26,21 @@ private:
     vector<Bullet*>* shots;
 
     glm::vec3 bulletColor = {0.5, 0.5, 0.5};
+
 public:
+    /*Constructor
+     * initializes players variables and calls the parent Object class to be initialized
+     */
     Player(glm::vec2 position, glm::vec2 scale, glm::vec2 velocity, glm::vec3 color, int health, int scWidth, int scHeight);
     ~Player();
 
+    /* change Health
+     * adjusts players health when player takes damage
+     */
     void changeHealth(double deltaHealth);
+    /* change Health
+     * adjusts players health when player takes damage
+     */
     void addDamageDone(int damage);
     void move(int move, bool jump, double deltaTime);
     void shoot(double xPos, double yPos);

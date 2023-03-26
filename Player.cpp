@@ -4,6 +4,9 @@
 
 #include "Player.h"
 
+/*Constructor
+ * initializes players variables and calls the parent Object class to be initialized
+ */
 Player::Player(glm::vec2 position, glm::vec2 scale, glm::vec2 velocity, glm::vec3 color, int health, int scWidth, int scHeight) : Object(position, scale, velocity, color, true, scWidth, scHeight) {
     this->health = health;
     this->damageTaken = 0;
@@ -17,15 +20,25 @@ Player::~Player() {
 
 }
 
+/* change Health
+ * adjusts players health when player takes damage
+ */
 void Player::changeHealth(double deltaHealth) {
     health += deltaHealth;
     damageTaken -= deltaHealth;
 }
 
+/*addDamageDone
+ * When player hits enemy then it increments damage done by the inputted damage
+ */
 void Player::addDamageDone(int damage) {
     damageDone += damage;
 }
 
+/*Player Move
+ * Based off user input this method calculates physics to allow for the character to
+ * move L/R or jump and utilizes the delta Time input to make it consistent
+ */
 void Player::move(int move, bool jump, double deltaTime) {
 
     /*For move:
@@ -33,16 +46,19 @@ void Player::move(int move, bool jump, double deltaTime) {
      * 1 = left
      * 2 = right*/
 
+    //If player is dropping off the platform then grounded = false so the player can fall off it
     if(dropPlat != 0 && grounded){
         grounded = false;
     }
 
+    //if user inputs L/R movement then the player moves that direction
     if(move == 1 && position.x > 0.0){
         this->position.x -= MAXPIXPERSEC * deltaTime;
     }else if (move == 2 && position.x + scale.x < scWidth){
         this->position.x += MAXPIXPERSEC * deltaTime;
     }
 
+    //If the player isn't grounded calculate freefall physics
     if(!grounded){
         if(position.y > 0  && velocity.y <= 0){
             velocity.y -= APPARENT_GRAVITY * deltaTime;
