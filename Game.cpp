@@ -85,8 +85,9 @@ void Game::checkCollisions(double deltaTime) {
                 terminate();
             }
         } else {
+            int eSize = enemies.size();
             //Checks and deletes bullets when they collide with an enemy
-            for (j = 0; j < enemies.size(); ++j) {
+            for (j = 0; j < eSize; ++j) {
                 if (currentShots->at(i)->getPosition().x <=
                     enemies.at(j)->getPosition().x + enemies.at(j)->getScale().x &&
                     currentShots->at(i)->getPosition().x >= enemies.at(j)->getPosition().x &&
@@ -100,7 +101,7 @@ void Game::checkCollisions(double deltaTime) {
                     if (dead) {
                         defeatedEnemy(j);
                     }
-
+                    eSize = enemies.size();
                     //Delete shot if there's a collision
                     try {
                         player->deleteShot(i);

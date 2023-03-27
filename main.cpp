@@ -23,7 +23,7 @@ void sendData(Game &game, string name){
     //Saves info to file
     ofstream spinSquare;
     spinSquare.open("../spinnysquare.txt", ios_base::app);
-    spinSquare << "{";
+    spinSquare << "\n";
     for(int i = 0; i < playerData.size(); ++i){
         if(i < playerData.size() - 1) {
             spinSquare << playerData.at(i) << ", ";
@@ -31,8 +31,9 @@ void sendData(Game &game, string name){
             spinSquare << playerData.at(i);
         }
     }
-    spinSquare << "}" << endl;
     spinSquare.close();
+
+    system("py ../game.py playerData.at(0)");
 }
 
 
